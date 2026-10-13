@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Digital conservation tourism, classes and citizen science for Uganda's reptiles and amphibians."><link rel="icon" href="images/favicon.png">
+<title>Herpetofauna Digital Tourism & Awareness Platform</title>
+<style>
+:root{--bg:#0b1710;--fg:#eaf2ec;--card:rgba(16,32,23,.72);--acc:#6fd195;--acc2:#e9a84c;--mut:#a9bcae;--bd:rgba(255,255,255,.14);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Georgia,'Times New Roman',serif;line-height:1.6}
+h1,h2,h3,nav,button,label,.tag{font-family:system-ui,-apple-system,'Segoe UI',sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--bd);display:flex;gap:14px;align-items:center;padding:10px 16px;overflow-x:auto;white-space:nowrap}
+header b{color:var(--acc);margin-right:auto}
+nav a{color:var(--fg);text-decoration:none;font-size:14px;margin-left:12px}
+.hero{padding:56px 20px 48px;text-align:center;background:linear-gradient(160deg,var(--acc),#173d28);color:#fff}
+.hero h1{font-size:clamp(28px,6vw,48px);margin:0 0 12px;line-height:1.15}
+.hero p{max-width:620px;margin:0 auto 22px;font-size:18px;opacity:.95}
+.btn{display:inline-block;background:var(--acc2);color:#1d1405;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:600;border:0;font-size:16px;cursor:pointer}
+section{max-width:960px;margin:0 auto;padding:44px 18px}
+h2{font-size:28px;margin:0 0 6px;color:var(--acc)}
+.sub{color:var(--mut);margin:0 0 22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px}
+.card h3{margin:6px 0;font-size:18px}.card p{margin:6px 0;font-size:15px}
+.ico{font-size:34px}.tag{display:inline-block;font-size:12px;background:var(--bd);padding:2px 9px;border-radius:99px;color:var(--mut)}
+.myth{border-left:3px solid var(--acc2);padding-left:10px;font-size:14px;color:var(--mut)}
+.band{background:var(--card);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps li{counter-increment:s;margin:10px 0;padding-left:44px;position:relative}
+.steps li:before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:var(--acc);color:#fff;text-align:center;line-height:30px;font-family:system-ui}
+form{display:grid;gap:12px;max-width:560px}
+label{font-size:14px;font-weight:600;display:grid;gap:4px}
+input,select,textarea{font:inherit;padding:10px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--fg);width:100%}
+.msg{padding:10px 12px;border-radius:10px;background:var(--bd);font-family:system-ui;font-size:14px;display:none}
+.list{max-width:560px;margin-top:20px;display:grid;gap:8px}
+.list .card{padding:10px 14px;font-size:14px}
+.table{overflow-x:auto}
+footer{text-align:center;padding:30px 16px;color:var(--mut);font-size:14px;border-top:1px solid var(--bd)}
+html{background:var(--bg)}body{background:transparent}
+#bg{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block}
+header{overflow:visible;white-space:normal;flex-wrap:wrap;background:rgba(11,23,16,.72);backdrop-filter:blur(8px)}
+#mb{display:none;background:none;border:1px solid var(--bd);color:var(--fg);border-radius:8px;font-size:20px;padding:2px 12px}
+@media(max-width:760px){#mb{display:block}nav{display:none;width:100%;flex-direction:column}nav.open{display:flex}nav a{margin:0;padding:13px 4px;border-top:1px solid var(--bd);font-size:16px}}
+.hero{background:none;min-height:86vh;display:flex;flex-direction:column;justify-content:center;text-shadow:0 2px 14px rgba(0,0,0,.7)}
+.band{background:rgba(8,18,12,.5)}
+.card{backdrop-filter:blur(6px);transition:transform .25s}.card:hover{transform:translateY(-4px)}
+.hint{font-family:system-ui;font-size:13px;opacity:.85;margin-top:16px}
+input,select,textarea{background:rgba(255,255,255,.07)}option{color:#000}
+.pw{position:relative}.pt{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 2px}.pt::-webkit-scrollbar{display:none}
+.pc{flex:0 0 210px;scroll-snap-align:start;text-align:center;cursor:pointer;padding:18px 12px}
+.pi{width:84px;height:84px;margin:0 auto 10px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:26px;overflow:hidden}.pi img{width:100%;height:100%;object-fit:cover}
+.pnm{font-size:15px;font-weight:600}
+.pb{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:38px;height:38px;border-radius:50%;border:1px solid var(--bd);background:var(--card);color:var(--fg);font-size:24px;line-height:1;cursor:pointer}#pp{left:-6px}#pnx{right:-6px}
+.gb{padding:8px 18px;border-radius:99px;border:1px solid var(--bd);background:var(--card);color:var(--fg);cursor:pointer;font:600 14px system-ui}.gb.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.gg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}.gi{aspect-ratio:1;border-radius:10px;overflow:hidden;cursor:pointer;background:var(--card);position:relative}.gi img{width:100%;height:100%;object-fit:cover;display:block}.gi b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:34px;color:#fff;background:rgba(0,0,0,.35)}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}#lb img,#lb video{max-width:100%;max-height:86vh;border-radius:8px}#lb iframe{width:min(100%,900px);aspect-ratio:16/9;border:0}
+
+header{overflow:visible;white-space:normal;flex-wrap:wrap;background:rgba(11,23,16,.82);backdrop-filter:blur(8px)}
+#nv{display:flex;align-items:center;gap:2px}#nv a{margin:0;padding:8px 10px;border-radius:8px;white-space:nowrap}#nv a:hover{background:rgba(255,255,255,.08)}
+.dd{position:relative}.ddm{display:none;position:absolute;right:0;top:100%;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:6px;min-width:190px;z-index:30}.dd:hover .ddm,.dd.open .ddm{display:block}.ddm a{display:block}
+nav a.cur{color:var(--acc);font-weight:700}
+.feat{padding:18px 4px;border-top:3px solid var(--acc)}.feat .ico{font-size:30px}.feat a{color:var(--acc);font-weight:600;text-decoration:none}
+.ft{background:rgba(8,16,11,.85);border-top:1px solid var(--bd);text-align:left;padding:34px 18px 18px}.fg{max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:22px}.ft b{display:block;margin-bottom:8px;color:var(--fg)}.ft p{margin:0;color:var(--mut);font-size:14px}.ft a{display:block;color:var(--mut);text-decoration:none;padding:3px 0;font-size:14px}.ft .cp{text-align:center;margin-top:22px;font-size:13px}
+@media(max-width:760px){.ddb{display:none}.ddm{display:block;position:static;border:0;padding:0;background:none}.dd .ddm a{padding:13px 4px}#nv{gap:0}}
+.hero{position:relative;overflow:hidden;min-height:78vh;background:radial-gradient(ellipse at 50% 30%,#16341f,#0b1710)}.hero>*:not(canvas){position:relative;z-index:1}
+@media(max-width:760px){#nv{display:none}#nv.open{display:flex;position:absolute;top:100%;left:0;right:0;background:var(--bg);max-height:calc(100vh - 70px);overflow:auto;padding:6px 18px 14px;border-bottom:1px solid var(--bd);box-shadow:0 14px 26px rgba(0,0,0,.45);flex-direction:column;align-items:stretch}#nv a{display:block;text-align:left;padding:14px 4px;border-top:1px solid var(--bd);border-radius:0}.dd .ddm a{padding:14px 4px}}
+@media(max-width:760px){#nv .ddb{display:none}}
+.ft{padding:22px 18px 12px}.fg2{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1.2fr 1fr;gap:20px}
+.ft .fl{display:grid;grid-template-columns:1fr 1fr;gap:14px}.ft b{margin-bottom:6px}.ft a,.ft span{display:block;color:var(--mut);font-size:14px;padding:2px 0;text-decoration:none}
+.ft iframe{width:100%;height:150px;border:0;border-radius:10px;display:block;margin-bottom:6px}
+.ft .so{display:flex;gap:14px;margin-top:4px}.ft .so a{display:inline}
+.fb{max-width:960px;margin:16px auto 0;padding-top:10px;border-top:1px solid var(--bd);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}.fb span,.fb a{font-size:13px}
+@media(max-width:760px){.fg2{grid-template-columns:1fr;gap:16px}}
+.ct{display:grid;grid-template-columns:1fr 1.2fr;gap:22px;align-items:start}@media(max-width:760px){.ct{grid-template-columns:1fr}}
+.cl{display:grid;gap:10px}.cr{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 16px;color:var(--fg);text-decoration:none}
+.cr i{font-style:normal;font-size:22px;width:46px;height:46px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;flex:none}
+.cr span{font-weight:600;font-size:16px;word-break:break-word}.cr small{display:block;color:var(--mut);font-weight:500;font-size:13px}
+.cfm{max-width:none;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:20px}
+.lg{height:30px;width:auto;vertical-align:middle;margin-right:6px;border-radius:6px}
+.hbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.42;z-index:0}
+.ph{height:150px;border-radius:10px;overflow:hidden;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:44px;margin-bottom:10px;position:relative}.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pi{position:relative}.pi img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+details{border-top:1px solid var(--bd);padding:12px 0}details summary{cursor:pointer;font-weight:600;font-size:16px}details p{margin:8px 0 0;color:var(--mut)}
+.ft .fx{display:flex;gap:14px;flex-wrap:wrap}.ft .fx a{display:inline}
+:focus-visible{outline:2px solid var(--acc2);outline-offset:2px}
+.sg{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}.sph{aspect-ratio:4/3;border-radius:10px;overflow:hidden;margin-bottom:10px;background:rgba(255,255,255,.06)}.sph img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in}.sci{font-style:italic;color:var(--mut);margin:0}.soon{color:var(--acc2);font-size:13px;margin:6px 0 0}
+.ph2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 18px}.ph2 img{width:100%;height:210px;object-fit:cover;border-radius:12px;cursor:zoom-in}@media(max-width:600px){.ph2{grid-template-columns:1fr}}
+.bk{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0 10px}.bk img{height:340px;width:auto;border-radius:10px;scroll-snap-align:start;cursor:zoom-in;flex:none}.full{max-width:100%;max-height:420px;border-radius:10px;cursor:zoom-in}
+#lb{flex-direction:column}.lc{color:#fff;font:14px system-ui;margin:10px 0 0;text-align:center;max-width:700px}.gi.gp{aspect-ratio:auto}.gi img{cursor:zoom-in}
+#lb img,#lb video{max-height:80vh}
+.pband{position:relative;min-height:360px;display:flex;align-items:flex-end;overflow:hidden}.pband>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.pband:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,.78))}.pbt{position:relative;z-index:1;padding:26px 20px;max-width:960px;margin:0 auto;width:100%;color:#fff}
+.pc .pi{border-radius:12px;background:#fff;color:var(--acc);width:100%;height:auto;aspect-ratio:2/1;overflow:hidden;margin:0 0 10px}.pc .pi img{object-fit:cover}
+a.card.sp{display:block;text-decoration:none;color:inherit}a.card.sp:hover{border-color:var(--acc)}
+.sn{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start;margin-bottom:10px}@media(max-width:700px){.sn{grid-template-columns:1fr}}
+.sno img{width:100%;border-radius:14px;display:block;cursor:zoom-in}.chips{margin:8px 0}.chip{display:inline-block;padding:4px 12px;border-radius:99px;background:var(--bd);font:600 13px system-ui}
+.fr{display:flex;gap:10px;padding:8px 0;border-top:1px solid var(--bd);font-size:15px}.fr b{flex:0 0 140px;color:var(--mut);font-weight:600}.tba{color:var(--acc2);font-style:italic}
+.snb h3{margin:22px 0 4px}.snn{display:flex;justify-content:space-between;gap:12px;margin-top:26px;flex-wrap:wrap}.snn a{color:var(--acc);font-weight:600;text-decoration:none}
+details.bio{margin-top:8px;text-align:left}details.bio summary{color:var(--acc);font-weight:600;cursor:pointer}#tst.empty{display:none!important}
+.tcard{border-left:3px solid var(--acc2);padding:4px 0 4px 14px}.tcard p{margin:0 0 6px;font-style:italic}.tcard small{color:var(--mut)}
+.tf{display:grid;gap:4px;margin:10px 0;font-size:14.5px}.tf div{display:flex;gap:8px}.tf b{flex:0 0 90px;color:var(--mut);font-weight:600}
+.dl{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--bd);font-size:14px}.at{padding:8px 18px;border-radius:99px;border:1px solid var(--bd);background:var(--card);color:var(--fg);cursor:pointer;font:600 14px system-ui}.at.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.dl button{background:none;border:0;color:var(--acc2);cursor:pointer;font:inherit}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+<noscript><p style="padding:20px">Please turn on JavaScript to use this website.</p></noscript>
+<header><b><img class="lg" src="images/logo.png" alt="Herpetofauna Platform logo" onload="this.nextElementSibling.remove()" onerror="this.remove()"><span>&#129422;</span> Herpetofauna Platform</b><button id="mb" aria-label="Menu">&#9776;</button><nav id="nv"><a href="#home">Home</a><a href="#about">About</a><a href="#species">Herpetofauna</a><a href="#tours">Tours</a><a href="#classes">Classes</a><a href="#gallery">Gallery</a><a href="#news">News</a><div class="dd"><a href="#" class="ddb">More &#9662;</a><div class="ddm"><a href="#learn">Snake safety</a><a href="#partners">Partners</a><a href="#partner">Get involved</a></div></div><a href="#contact">Contact</a></nav></header>
+
+<div class="hero" id="hero"><canvas id="bg"></canvas>
+<h1>Connecting people to reptiles and amphibians</h1>
+<p>Digital conservation tourism: stories, photography, virtual eco-tours and citizen science for Africa's most misunderstood wildlife.</p>
+<div><a class="btn" href="#science">Report a sighting</a></div><div class="hint">Move your cursor or drag your finger. The animals follow you.</div>
+</div>
+
+<section id="about">
+<h2>Why herpetofauna?</h2>
+<p class="sub">Reptiles and amphibians face habitat loss, climate change, road mortality, illegal trade and persecution, and fear and misinformation make it worse.</p>
+<div class="grid">
+<div class="card"><div class="ico">🎯</div><h3>Our vision</h3><p>A leading digital platform for reptile and amphibian conservation awareness, eco-tourism and community engagement in Africa and beyond.</p></div>
+<div class="card"><div class="ico">📖</div><h3>Our mission</h3><p>Use digital media and tourism storytelling to improve public understanding, appreciation and conservation of herpetofauna.</p></div>
+<div class="card"><div class="ico">🌍</div><h3>Who it is for</h3><p>Wildlife tourists, schools, NGOs, researchers, eco-tourism operators, photographers, communities and supporters worldwide.</p></div>
+</div>
+<h2 style="margin-top:34px">Our team</h2><p class="sub">The people behind the work.</p><div class="grid" id="tmg"><div class="feat" style="text-align:center"><div class="pi" style="margin:0 auto 10px"><span>ME</span><img src="images/team/mukasa-emmanuel.jpg" alt="Mukasa Emmanuel" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><h3>Mukasa Emmanuel</h3><p>Executive Director</p><details class="bio"><summary>Read bio</summary><p data-bio="Mukasa Emmanuel">Bio coming soon.</p></details></div><div class="feat" style="text-align:center"><div class="pi" style="margin:0 auto 10px"><span>IK</span><img src="images/team/ivan-kaddu.jpg" alt="Ivan Kaddu" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><h3>Ivan Kaddu</h3><p>Director of Communication</p><details class="bio"><summary>Read bio</summary><p data-bio="Ivan Kaddu">Bio coming soon.</p></details></div><div class="feat" style="text-align:center"><div class="pi" style="margin:0 auto 10px"><span>PL</span><img src="images/team/patrick-lamontagne.jpg" alt="Patrick Lamontagne" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><h3>Patrick Lamontagne</h3><p>Lead trainer, Instructional Designer</p><details class="bio"><summary>Read bio</summary><p data-bio="Patrick Lamontagne">Bio coming soon.</p></details></div><div class="feat" style="text-align:center"><div class="pi" style="margin:0 auto 10px"><span>AA</span><img src="images/team/arafat-akankwasa.jpg" alt="Arafat Akankwasa" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><h3>Arafat Akankwasa</h3><p>Director of Resource Mobilization</p><details class="bio"><summary>Read bio</summary><p data-bio="Arafat Akankwasa">Bio coming soon.</p></details></div></div></section>
+
+<section id="pb" style="max-width:none;padding:0;border:0"><div class="pband"><img src="images/hero.jpg" alt="Herp Fauna team walking through a forest in Uganda"><div class="pbt"><h2 style="color:#fff">Out in the field</h2><p style="margin:0 0 12px;max-width:520px">Real fieldwork with real people: forest walks, community talks and classes across Uganda.</p><a class="btn" href="#gallery">See the gallery</a></div></div></section>
+
+<section id="hq"><h2>What we do</h2><p class="sub">Education, tourism and citizen science for reptiles and amphibians.</p><div class="grid">
+<div class="feat"><div class="ico">&#129422;</div><h3>Herpetofauna</h3><p>Photo profiles of the snakes, lizards, frogs and crocodiles we work to protect.</p><a href="#species">Meet the animals &rarr;</a></div>
+<div class="feat"><div class="ico">&#127807;</div><h3>Tours</h3><p>Reptile parks, wetlands and forest night walks, in person and online.</p><a href="#tours">See the tours &rarr;</a></div>
+<div class="feat"><div class="ico">&#127891;</div><h3>Classes</h3><p>Live and recorded lessons on snake safety, identification and conservation.</p><a href="#classes">Join a class &rarr;</a></div>
+<div class="feat"><div class="ico">&#128247;</div><h3>Gallery</h3><p>Photos and short videos from the field, camps and classes.</p><a href="#gallery">View the gallery &rarr;</a></div>
+</div></section>
+
+<div class="band"><section id="species"><h2>Herpetofauna: species profiles</h2><p class="sub">Snakes we work with in Uganda. We are building a full profile for each one, step by step.</p><div class="grid sg"><a class="card sp" href="#snake/eastern-forest-cobra"><div class="sph"><img loading="lazy" src="images/species/eastern-forest-cobra.jpg" alt="Eastern forest cobra"></div><h3>Eastern forest cobra</h3><p class="sci">Naja subfulva</p><p class="soon">View full profile &rarr;</p></a><a class="card sp" href="#snake/black-mamba"><div class="sph"><img loading="lazy" src="images/species/black-mamba.jpg" alt="Black mamba"></div><h3>Black mamba</h3><p class="sci">Dendroaspis polylepis</p><p class="soon">View full profile &rarr;</p></a><a class="card sp" href="#snake/green-bush-viper"><div class="sph"><img loading="lazy" src="images/species/green-bush-viper.jpg" alt="Green bush viper"></div><h3>Green bush viper</h3><p class="sci">Atheris squamigera</p><p class="soon">View full profile &rarr;</p></a><a class="card sp" href="#snake/rough-scaled-bush-viper"><div class="sph"><img loading="lazy" src="images/species/rough-scaled-bush-viper.jpg" alt="Rough-scaled bush viper"></div><h3>Rough-scaled bush viper</h3><p class="sci">Atheris hispida</p><p class="soon">View full profile &rarr;</p></a><a class="card sp" href="#snake/velvety-night-adder"><div class="sph"><img loading="lazy" src="images/species/velvety-night-adder.jpg" alt="Velvety night adder"></div><h3>Velvety night adder</h3><p class="sci">&nbsp;</p><p class="soon">View full profile &rarr;</p></a><a class="card sp" href="#snake/east-african-garter-snake"><div class="sph"><img loading="lazy" src="images/species/east-african-garter-snake.jpg" alt="East African garter snake"></div><h3>East African garter snake</h3><p class="sci">Elapsoidea loveridgei</p><p class="soon">View full profile &rarr;</p></a><a class="card sp" href="#snake/blandings-tree-snake"><div class="sph"><img loading="lazy" src="images/species/blandings-tree-snake.jpg" alt="Blanding's tree snake"></div><h3>Blanding's tree snake</h3><p class="sci">&nbsp;</p><p class="soon">View full profile &rarr;</p></a><a class="card sp" href="#snake/cape-wolf-snake"><div class="sph"><img loading="lazy" src="images/species/cape-wolf-snake.jpg" alt="Cape wolf snake"></div><h3>Cape wolf snake</h3><p class="sci">&nbsp;</p><p class="soon">View full profile &rarr;</p></a><a class="card sp" href="#snake/brown-house-snake"><div class="sph"><img loading="lazy" src="images/species/brown-house-snake.jpg" alt="Brown house snake"></div><h3>Brown house snake</h3><p class="sci">&nbsp;</p><p class="soon">View full profile &rarr;</p></a><a class="card sp" href="#snake/rock-python"><div class="sph"><img loading="lazy" src="images/species/rock-python.jpg" alt="Rock python"></div><h3>Rock python</h3><p class="sci">&nbsp;</p><p class="soon">View full profile &rarr;</p></a></div></section></div>
+
+<section id="tours">
+<h2>Virtual eco-tourism</h2>
+<p class="sub">Explore wild places from anywhere, and help the people who protect them.</p><div class="ph2"><img class="zoom" src="images/tours/walk.jpg" alt="A herping walk at dusk"><img class="zoom" src="images/tours/mabira-snake.jpg" alt="A snake found on a wet afternoon in Mabira Forest"></div><h3 style="margin:8px 0 12px">Tours and trips</h3><div class="grid" id="tl"></div><h3 style="margin:30px 0 12px">Virtual eco-tours</h3>
+<div class="grid">
+<div class="card"><div class="ico">🐍</div><h3>Reptile park tours</h3><p>Guided, live-narrated visits with expert answers.</p></div>
+<div class="card"><div class="ico">🌿</div><h3>Wetland biodiversity</h3><p>Frogs, crocodiles and birdlife in Africa's wetlands.</p></div>
+<div class="card"><div class="ico">🔦</div><h3>Forest night walks</h3><p>Find the amphibians and reptiles that come alive after dark.</p></div>
+<div class="card"><div class="ico">🎬</div><h3>Documentaries</h3><p>Crocodile and fieldwork films from our team.</p></div>
+</div>
+<div style="margin-top:16px"><a class="btn" href="#contact?topic=Tours">Ask about prices and dates</a></div>
+</section>
+
+<section id="gallery"><h2>Gallery</h2><p class="sub">Photos and short videos from our fieldwork, camps, tours and classes.</p>
+<div style="display:flex;gap:8px;margin-bottom:14px"><button class="gb on" data-k="photo">Photos</button><button class="gb" data-k="video">Videos</button><button class="gb" data-k="poster">Posters</button></div>
+<div class="gg" id="gg"></div><p class="sub" id="ge">Our gallery is being filled with photos and videos from the field. Check back soon.</p></section>
+<section id="cta" style="text-align:center"><h2>Help protect reptiles and amphibians</h2><p class="sub">Report what you see, join a class, or partner with us.</p><div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center"><a class="btn" href="#science">Report a sighting</a><a class="btn" href="#partner">Get involved</a></div></section>
+
+<section id="contact"><h2>Get in touch</h2><p class="sub">Questions about tours, classes or partnerships? Send us a message and we will reply as soon as we can.</p>
+<div class="ct">
+<div class="cl">
+<a class="cr" href="tel:+256752681903"><i>&#128222;</i><span><small>Call us</small>+256 752 681 903</span></a>
+<a class="cr" href="https://www.google.com/maps/search/?api=1&amp;query=Kampala+Uganda" target="_blank" rel="noopener"><i>&#128205;</i><span><small>Based in</small>Kampala, Uganda</span></a>
+<div class="so" style="display:flex;gap:16px;padding:6px 4px"><a href="https://www.instagram.com/herpfauna/" target="_blank" rel="noopener" style="color:var(--acc);font-weight:600;text-decoration:none">Instagram</a><a href="https://www.facebook.com/atraceps" target="_blank" rel="noopener" style="color:var(--acc);font-weight:600;text-decoration:none">Facebook</a></div>
+</div>
+<form id="ctf" class="cfm"><h3 style="margin:0">Send us a message</h3><p class="sub" style="margin:0">Choose how you want to send it: WhatsApp or email. Your message will be ready to send.</p>
+<label>Your name<input id="ctn" autocomplete="name"></label>
+<label>Email or phone<input id="cte" autocomplete="email"></label>
+<label>What is it about?<select id="ctt"><option>General enquiry</option><option>Tours</option><option>Classes</option><option>Reporting a sighting</option><option>Partnership</option><option>Donations</option><option>Media</option></select></label>
+<label>Message<textarea id="ctm" rows="4"></textarea></label>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="button" id="ctw">Send via WhatsApp</button><button class="btn" type="button" id="ctx" style="background:none;border:1px solid var(--acc);color:var(--acc)">Send via email</button></div>
+<div class="msg" id="ctr"></div></form>
+</div></section>
+
+<section id="news"><h2>News</h2><p class="sub">Stories from the field, events and conservation updates.</p><div class="feat"><h3>Snakebites in livestock and domestic animals in Uganda</h3><p class="sub">An article from the Herp Fauna Foundation. Swipe through the pages and tap to enlarge.</p><div class="bk"><img class="zoom" loading="lazy" src="images/news/livestock-1.jpg" alt="Livestock article page 1"><img class="zoom" loading="lazy" src="images/news/livestock-2.jpg" alt="Livestock article page 2"><img class="zoom" loading="lazy" src="images/news/livestock-3.jpg" alt="Livestock article page 3"><img class="zoom" loading="lazy" src="images/news/livestock-4.jpg" alt="Livestock article page 4"></div></div><div class="feat"><small style="color:var(--mut)">9/28/25</small><h3>Culture and Ecology: Lesson from Uganda</h3></div><div class="feat"><small style="color:var(--mut)">12/10/24</small><h3>Herping Day Trip!</h3></div><div class="feat"><small style="color:var(--mut)">11/25/24</small><h3>A Snake Awareness Evening Success!</h3></div><div class="feat"><small style="color:var(--mut)">10/14/23</small><h3>East African Snakebite Conference!</h3></div><div class="feat"><small style="color:var(--mut)">6/15/23</small><h3>With a mix of recreation, environmental conservation can be fun!</h3></div><div class="feat"><small style="color:var(--mut)">5/28/19</small><h3>Mabira Forest Herping Adventure!</h3></div></section>
+
+<section id="faq"><h2>Frequently asked questions</h2><div style="max-width:700px"><details><summary>How do I join a class?</summary><p>Open the Classes page, create a free account, then choose your class and follow the curriculum.</p></details><details><summary>How do I report a sighting?</summary><p>Use the Report a sighting page. Tell us the animal, place and date, and add a photo if you can. Never touch or chase a wild animal.</p></details><details><summary>What should I do if someone is bitten by a snake?</summary><p>Keep the person calm and still, and take them to the nearest health facility immediately. Do not cut the wound, suck the venom or tie anything tightly.</p></details><details><summary>How do I book a tour?</summary><p>Send us a message on the Contact page and we will confirm prices and dates.</p></details><details><summary>Can my school, company or organisation partner with us?</summary><p>Yes. Contact us and tell us about your organisation.</p></details></div></section>
+
+<section id="privacy"><h2>Privacy policy</h2><p class="sub">Draft, to be reviewed before launch.</p><div style="max-width:700px"><p>We collect only what you give us: your name and email when you create a class account, the details you send in a sighting report, and the messages you send us by WhatsApp or email.</p><p>We use this information to run classes, review sightings and reply to you. We do not sell your information. We share it only with partners who help run a class or verify a sighting, and only when needed.</p><p>You can ask us to see, correct or delete your information by contacting us. If a child signs up, a parent or guardian should supervise.</p></div></section>
+
+<section id="terms"><h2>Terms of use</h2><p class="sub">Draft, to be reviewed before launch.</p><div style="max-width:700px"><p>The content on this site is for education and awareness. It is not medical advice. In a snakebite emergency, go to the nearest health facility immediately.</p><p>Photos, videos and text belong to Herpetofauna Platform and its partners and may not be copied without permission. Please be respectful in classes and when sharing sightings, and never put yourself or wildlife at risk.</p><p>We may change or remove content and classes at any time.</p></div></section>
+
+<section id="notfound" style="text-align:center"><h2>Page not found</h2><p class="sub">We could not find that page.</p><a class="btn" href="#home">Go to Home</a></section>
+
+<section id="snake"><p><a href="#species" style="color:var(--acc);font-weight:600;text-decoration:none">&larr; All snakes</a></p><div id="snb"></div></section>
+
+<section id="admin"><h2>Team area</h2><p class="sub">For the Herp Fauna team only. Sign in to add or edit snake profiles, classes, tours, team bios, testimonials and gallery pictures.</p>
+<div id="adl" style="max-width:440px"><div style="display:flex;gap:8px;margin-bottom:14px"><button class="at on" data-m="in" type="button">Sign in</button><button class="at" data-m="up" type="button">Sign up</button></div>
+<form id="adf"><label>Email<input id="ade" type="email" autocomplete="email"></label><label>Password<input id="adp" type="password" autocomplete="current-password"></label><button class="btn" type="submit">Sign in</button><div class="msg" id="adm"></div><p class="sub" style="margin:8px 0 0;font-size:13px">New to the team? Choose Sign up. The owner must approve you before you can edit.</p></form>
+<form id="asf" style="display:none"><label>Your name<input id="asn" autocomplete="name"></label><label>Your email<input id="ase" type="email" autocomplete="email"></label><label>Choose a password (at least 8 characters)<input id="asp" type="password" autocomplete="new-password"></label><label>Your role<select id="asr"></select></label><label style="display:none">Owner setup code<input id="asc" autocomplete="off"></label><button class="btn" type="submit">Create account</button><div class="msg" id="asm"></div></form></div>
+<div id="add" style="display:none;max-width:640px"><p class="sub" id="adwho" style="margin:0 0 8px"></p><div class="note" style="margin:0 0 14px">Pictures are saved to Telegram. For videos, upload them to YouTube as Unlisted, then paste the link here. Everything you save appears on the live website straight away.</div>
+<label>What do you want to add or edit?<select id="ads"></select></label><form id="adg" style="margin-top:14px;max-width:none"></form><div id="adlst" style="margin-top:18px"></div>
+<button class="btn" id="ado" type="button" style="margin-top:16px;background:none;border:1px solid var(--acc);color:var(--acc)">Sign out</button></div></section>
+
+<div id="lb"></div>
+
+<div class="band"><section id="science">
+<h2>Citizen science: report a sighting</h2>
+<p class="sub">Saw a snake, lizard, frog or crocodile? Tell us where. Your records help document biodiversity. Roadkill reports are welcome too.</p>
+<form id="f">
+<label>Animal seen<input id="sp" required placeholder="e.g. Nile monitor, a green snake, a frog"></label>
+<label>Type<select id="ty"><option>Snake</option><option>Lizard / chameleon</option><option>Crocodile</option><option>Tortoise / turtle</option><option>Frog / toad</option><option>Not sure</option></select></label>
+<label>Place<input id="pl" required placeholder="Village, town, park or wetland"></label>
+<label>Date<input id="dt" type="date" required></label>
+<label>Alive or roadkill?<select id="st"><option>Alive</option><option>Roadkill</option></select></label>
+<label>Notes<textarea id="nt" rows="3" placeholder="What was it doing? Size, colour, habitat"></textarea></label>
+<label>Your name (optional)<input id="nm"></label>
+<label>Photo (optional)<input type="file" id="spf" accept="image/*"></label><button class="btn" type="submit">Submit sighting</button>
+<div class="msg" id="msg"></div>
+</form>
+<div class="list" id="recent"></div>
+<p class="sub" style="margin-top:14px">Safety first: never touch or chase a wild animal. Take a photo from a safe distance.</p>
+</section></div>
+
+<section id="learn">
+<h2>Snake safety and learning</h2>
+<p class="sub">Education that reduces fear and saves lives, human and animal.</p>
+<ol class="steps">
+<li><b>Stay calm and give space.</b> Most snakes want to escape, not attack.</li>
+<li><b>Never try to kill or handle it.</b> Most bites happen when people do.</li>
+<li><b>Keep yards tidy.</b> Clear tall grass, rubbish and wood piles that hide rodents and snakes.</li>
+<li><b>If bitten, go to a health facility immediately.</b> Keep the person still and calm, and do not cut, suck or tie the wound.</li>
+<li><b>Call a trained snake handler</b> or wildlife authority to move the animal safely.</li>
+</ol>
+<div class="grid" style="margin-top:20px">
+<div class="card"><div class="ico">🏫</div><h3>For schools</h3><p>Lesson packs and live sessions for students and teachers. Coming soon.</p></div>
+<div class="card"><div class="ico">📚</div><h3>Digital field guide</h3><p>Species profiles and identification help. In development.</p></div>
+<div class="card"><div class="ico">✍️</div><h3>Blog and research</h3><p>Stories from the field and conservation updates.</p></div>
+</div>
+<h3 style="margin:26px 0 6px">Can you tell a dangerous snake by its head?</h3><p class="sub">Some snakes look different, but never rely on this alone and never go near a snake to check.</p><img class="zoom full" loading="lazy" src="images/safety/pit-viper-vs-harmless.jpg" alt="Diagram comparing a pit viper with a non-venomous snake">
+<h3 style="margin:26px 0 6px">Medically important snakes in Uganda</h3><img class="zoom full" loading="lazy" src="images/safety/medically-important-snakes-map.jpg" alt="Map showing medically important snakes in Uganda">
+<h3 style="margin:26px 0 6px">Snakebite first aid booklet</h3><p class="sub">Swipe through the booklet. Tap a page to enlarge it.</p><div class="bk"><img class="zoom" loading="lazy" src="images/safety/first-aid-1.jpg" alt="First aid booklet page 1"><img class="zoom" loading="lazy" src="images/safety/first-aid-2.jpg" alt="First aid booklet page 2"><img class="zoom" loading="lazy" src="images/safety/first-aid-3.jpg" alt="First aid booklet page 3"><img class="zoom" loading="lazy" src="images/safety/first-aid-4.jpg" alt="First aid booklet page 4"><img class="zoom" loading="lazy" src="images/safety/first-aid-5.jpg" alt="First aid booklet page 5"><img class="zoom" loading="lazy" src="images/safety/first-aid-6.jpg" alt="First aid booklet page 6"><img class="zoom" loading="lazy" src="images/safety/first-aid-7.jpg" alt="First aid booklet page 7"><img class="zoom" loading="lazy" src="images/safety/first-aid-8.jpg" alt="First aid booklet page 8"></div><div class="note"><b>Important:</b> this is general information, not medical advice. If someone is bitten by a snake, take them to the nearest health facility immediately.</div></section>
+
+<div class="band"><section id="classes"><h2>Classes</h2><p class="sub" id="cintro">Learn from our team online, in live and recorded classes. Sign up free to get started.</p><p><a href="#contact?topic=Classes" style="color:var(--acc);font-weight:600">Ask about fees and class schedule &rarr;</a></p>
+<div id="gate" style="max-width:560px"><h3 id="ct" style="font-size:20px">Create your free account</h3>
+<form id="cf"><label>Full name<input id="cn" autocomplete="name"></label><label>Email<input id="ce" type="email" autocomplete="email" required></label><label>Password<input id="cp" type="password" autocomplete="new-password" required></label>
+<button class="btn" type="submit" id="cb">Sign up</button>
+<button type="button" id="cs" style="background:none;border:0;color:var(--acc);cursor:pointer;font:inherit;text-align:left;padding:0">Already have an account? Log in</button>
+<div class="msg" id="cm"></div></form></div>
+<div id="cv" style="display:none"><h3 id="cvw" style="font-size:22px;margin:0 0 4px"></h3><p class="sub">Your curriculum and schedule. Titles and lessons are drafts to be confirmed by the team.</p>
+<div id="cvlive"></div><div id="cvl"></div>
+<h3 style="margin-top:20px">Live class schedule</h3><p>Live sessions: dates to be announced.</p>
+<h3>Lesson video</h3><div id="cvp" style="background:rgba(0,0,0,.18);border-radius:10px;padding:34px 12px;text-align:center;color:var(--mut)">The lesson video or live stream will play here.</div>
+<p style="margin-top:14px"><button class="btn" id="co" type="button">Log out</button></p></div>
+</section></div>
+
+<section id="tst" class="empty"><h2>What people say</h2><div class="grid" id="tstl"></div></section>
+
+<section id="partners"><h2>Our partners</h2><p class="sub">Swipe, or tap a partner or the arrows, to slide through.</p><div class="pw"><button class="pb" id="pp" aria-label="Previous partner">&#8249;</button><div class="pt" id="pt"><div class="card pc"><div class="pi"><span>DB</span><img src="images/partners/dag-and-bragan-ltd.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Dag and Bragan LTD</div></div><div class="card pc"><div class="pi"><span>MS</span><img src="images/partners/makerere-school-of-education-biology-class.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Makerere School of Education, Biology Class</div></div><div class="card pc"><div class="pi"><span>DC</span><img src="images/partners/dancing-cup-restaurant-bugolobi.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Dancing Cup Restaurant, Bugolobi</div></div><div class="card pc"><div class="pi"><span>DR</span><img src="images/partners/danish-refugee-council.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Danish Refugee Council</div></div><div class="card pc"><div class="pi"><span>FS</span><img src="images/partners/french-school-kampala.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">French School Kampala</div></div><div class="card pc"><div class="pi"><span>KI</span><img src="images/partners/kalangala-infrastructure-services-kis.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Kalangala Infrastructure Services (KIS)</div></div><div class="card pc"><div class="pi"><span>KH</span><img src="images/partners/kalangala-health-centre.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Kalangala Health Centre</div></div><div class="card pc"><div class="pi"><span>MP</span><img src="images/partners/mukono-police-station.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Mukono Police Station</div></div><div class="card pc"><div class="pi"><span>RS</span><img src="images/partners/royal-suits-bugolobi.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Royal Suits, Bugolobi</div></div><div class="card pc"><div class="pi"><span>SS</span><img src="images/partners/silverleaf-school-kampala.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Silverleaf School Kampala</div></div><div class="card pc"><div class="pi"><span>BM</span><img src="images/partners/bombo-military-barracks-updf.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Bombo Military Barracks (UPDF)</div></div><div class="card pc"><div class="pi"><span>BL</span><img src="images/partners/bushbaby-lodge.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Bushbaby Lodge</div></div><div class="card pc"><div class="pi"><span>AR</span><img src="images/partners/a-rocha-uganda.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">A Rocha Uganda</div></div></div><button class="pb" id="pnx" aria-label="Next partner">&#8250;</button></div></section>
+
+<div class="band"><section id="partner">
+<h2>Get involved</h2>
+<p class="sub">Support the platform, volunteer, or work with us.</p>
+<div class="grid">
+<div class="card"><div class="ico">🤝</div><h3>Partners</h3><p>Wildlife authorities, universities, NGOs, tourism boards, museums and eco-tourism operators.</p></div>
+<div class="card"><div class="ico">📣</div><h3>Sponsors</h3><p>Sponsor a conservation campaign, documentary or workshop.</p></div>
+<div class="card"><div class="ico">🙋</div><h3>Volunteers</h3><p>Photographers, videographers, designers and advisors are welcome.</p></div>
+<div class="card"><div class="ico">💚</div><h3>Donate</h3><p>Online donations will open soon to fund fieldwork and education.</p></div>
+</div>
+<h3 style="margin-top:26px">Partner with us: membership brochure</h3><div class="bk"><img class="zoom" loading="lazy" src="images/brochure/page-1.jpg" alt="Partner with us brochure page 1"><img class="zoom" loading="lazy" src="images/brochure/page-2.jpg" alt="Partner with us brochure page 2"></div></section></div>
+
+<footer class="ft"><div class="fg2">
+<div class="fm"><b>Find us</b><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=32.50%2C0.28%2C32.66%2C0.40&amp;layer=mapnik&amp;marker=0.3476%2C32.5825" loading="lazy" title="Map of Kampala, Uganda"></iframe><a href="https://www.google.com/maps/search/?api=1&amp;query=Kampala+Uganda" target="_blank" rel="noopener">Open in Google Maps &rarr;</a></div>
+<div class="fl"><div><b>Pages</b><a href="#about">About</a><a href="#species">Herpetofauna</a><a href="#tours">Tours</a><a href="#classes">Classes</a><a href="#gallery">Gallery</a></div>
+<div><b>Get involved</b><a href="#science">Report a sighting</a><a href="#partners">Partners</a><a href="#partner">Volunteer or donate</a><a href="#contact">Contact</a></div></div>
+<div class="fc"><b>Contact</b><span>Kampala, Uganda</span><a href="mailto:herpfauna2@gmail.com">herpfauna2@gmail.com</a><a href="tel:+256752681903">+256 752 681 903</a><div class="so"><a href="https://www.instagram.com/herpfauna/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/atraceps" target="_blank" rel="noopener">Facebook</a></div></div></div>
+<div class="fb"><span>&copy; Herpetofauna Platform. Conservation through storytelling.</span><span class="fx"><a href="#faq">FAQ</a><a href="#news">News</a><a href="#privacy">Privacy</a><a href="#terms">Terms</a><a href="#admin">Team login</a></span><a href="#home" onclick="window.scrollTo({top:0,behavior:'smooth'});return false">Back to top &uarr;</a></div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script>
+(function(){
+var mb=document.getElementById('mb'),nv=document.getElementById('nv');
+mb.onclick=function(){nv.classList.toggle('open')};
+nv.onclick=function(){nv.classList.remove('open')};
+if(!window.THREE)return;
+var T=THREE,cv=document.getElementById('bg'),r;
+try{r=new T.WebGLRenderer({canvas:cv,antialias:true,alpha:true})}catch(e){return}
+r.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+var sc=new T.Scene();sc.fog=new T.FogExp2(0x0b1710,0.035);
+var cam=new T.PerspectiveCamera(60,1,.1,100);cam.position.set(0,0,9);
+sc.add(new T.HemisphereLight(0xdff5e6,0x2a3a30,1.5));
+var dl=new T.DirectionalLight(0xfff4dc,2.1);dl.position.set(3,5,6);sc.add(dl);
+var rl=new T.DirectionalLight(0x88ffd8,1.1);rl.position.set(-4,2,-3);sc.add(rl);
+function M(c,q){return new T.MeshStandardMaterial({color:c,roughness:q||.5,metalness:.05})}
+var SG=new T.SphereGeometry(1,20,14),CG=new T.CylinderGeometry(1,1,1,8);
+function E(sx,sy,sz,m,x,y,z){var o=new T.Mesh(SG,m);o.scale.set(sx,sy,sz);o.position.set(x||0,y||0,z||0);return o}
+/* scale texture */
+var c=document.createElement('canvas');c.width=128;c.height=256;var x=c.getContext('2d');
+x.fillStyle='#2a6e40';x.fillRect(0,0,128,256);
+for(var yy=0;yy<16;yy++)for(var xx=-1;xx<9;xx++){var cx=xx*16+(yy%2?8:0),cy=yy*16+8;x.fillStyle=(yy%4==1&&xx%2==0)?'#c9962f':((xx+yy)%3?'#2f8a4e':'#1f5a33');x.beginPath();x.moveTo(cx,cy-9);x.lineTo(cx+8,cy);x.lineTo(cx,cy+9);x.lineTo(cx-8,cy);x.closePath();x.fill();x.strokeStyle='rgba(0,0,0,.4)';x.stroke()}
+x.fillStyle='#e9dca6';x.fillRect(54,0,20,256);
+var tx=new T.CanvasTexture(c);tx.wrapS=tx.wrapT=T.RepeatWrapping;
+/* snake body: rings along a curve */
+var P=46,MS=150,RR=14,bp=[];
+for(var i=0;i<P;i++)bp.push(new T.Vector3(-i*.3,0,0));
+var curve=new T.CatmullRomCurve3(bp),pos=new Float32Array((MS+1)*RR*3),uv=new Float32Array((MS+1)*RR*2),idx=[];
+for(var i=0;i<=MS;i++)for(var j=0;j<RR;j++){var k=i*RR+j;uv[k*2]=j/(RR-1);uv[k*2+1]=i/MS*9;
+  if(i<MS){var j2=(j+1)%RR,a1=i*RR+j,a2=i*RR+j2,b1=(i+1)*RR+j,b2=(i+1)*RR+j2;idx.push(a1,b1,a2,a2,b1,b2)}}
+var bg=new T.BufferGeometry();bg.setAttribute('position',new T.BufferAttribute(pos,3));bg.setAttribute('uv',new T.BufferAttribute(uv,2));bg.setIndex(idx);
+var sk=new T.TextureLoader().load('images/snake-skin.jpg');sk.wrapS=sk.wrapT=T.MirroredRepeatWrapping;sk.anisotropy=4;var body=new T.Mesh(bg,new T.MeshStandardMaterial({map:sk,bumpMap:sk,bumpScale:1.4,color:0x86d9a2,emissive:0x143a24,roughness:.45,metalness:.25}));body.frustumCulled=false;sc.add(body);
+var Z=new T.Vector3(0,0,1),Xv=new T.Vector3(1,0,0),tg=new T.Vector3(),bn=new T.Vector3(),nr=new T.Vector3(),pt=new T.Vector3();
+function rings(){
+  for(var i=0;i<=MS;i++){var t=i/MS;curve.getPoint(t,pt);curve.getTangent(t,tg);
+    bn.crossVectors(tg,Z);if(bn.lengthSq()<1e-4)bn.set(0,1,0);bn.normalize();nr.crossVectors(bn,tg).normalize();
+    var rad=.27*Math.min(1,.6+t*4)*(1-Math.max(0,(t-.5)/.5)*.94)+.012;
+    for(var j=0;j<RR;j++){var an=j/RR*Math.PI*2,cs=Math.cos(an)*rad,sn=Math.sin(an)*rad*.9,k=(i*RR+j)*3;
+      pos[k]=pt.x+bn.x*cs+nr.x*sn;pos[k+1]=pt.y+bn.y*cs+nr.y*sn;pos[k+2]=pt.z+bn.z*cs+nr.z*sn}}
+  bg.attributes.position.needsUpdate=true;bg.computeVertexNormals();
+}
+/* snake head */
+var hg=new T.Group(),hm=new T.MeshStandardMaterial({map:sk,bumpMap:sk,bumpScale:1.2,color:0x86d9a2,emissive:0x143a24,roughness:.4,metalness:.25}),blk=new T.MeshBasicMaterial({color:0}),eye=M(0xe8c340,.3);
+hg.add(E(.46,.2,.3,hm,.05,0,0));hg.add(E(.34,.14,.22,hm,.42,-.03,0));
+[-1,1].forEach(function(k){hg.add(E(.075,.075,.075,eye,.3,.13,k*.2));hg.add(E(.012,.06,.02,blk,.36,.13,k*.215))});
+var tn=new T.Group();tn.position.set(.74,-.04,0);
+[-1,1].forEach(function(k){var f=new T.Mesh(CG,M(0xd02a3a));f.scale.set(.012,.28,.012);f.rotation.z=Math.PI/2;f.rotation.y=k*.45;f.position.set(.14,0,k*.05);tn.add(f)});
+hg.add(tn);sc.add(hg);
+/* frogs */
+function frog(col,bel){
+  var g=new T.Group(),m=M(col,.35),bm=M(bel,.4);
+  g.add(E(.58,.38,.44,m,0,0,0));g.add(E(.5,.22,.36,bm,.02,-.18,0));g.add(E(.36,.26,.38,m,.5,.08,0));
+  [-1,1].forEach(function(k){
+    g.add(E(.13,.13,.13,m,.52,.34,k*.2));g.add(E(.09,.09,.09,M(0xe8b830,.3),.6,.36,k*.21));g.add(E(.05,.05,.05,blk,.66,.37,k*.22));
+    var fl=new T.Mesh(CG,m);fl.scale.set(.06,.4,.06);fl.position.set(.3,-.32,k*.3);fl.rotation.z=.25;g.add(fl);
+    g.add(E(.12,.03,.09,m,.38,-.5,k*.32));
+    var hl=new T.Group();hl.position.set(-.3,-.05,k*.4);
+    hl.add(E(.3,.15,.14,m,-.12,-.02,0));hl.add(E(.3,.09,.09,m,-.36,-.16,0));hl.add(E(.22,.035,.13,m,-.6,-.3,k*.05));
+    g.add(hl);(g.userData.hl=g.userData.hl||[]).push(hl);
+  });
+  var dk=M(new T.Color(col).multiplyScalar(.45).getHex(),.5);
+  [[-.1,.36,.1],[-.3,.3,-.15],[.1,.33,-.17],[-.35,.28,.2],[.2,.3,.15]].forEach(function(q){g.add(E(.08,.04,.08,dk,q[0],q[1],q[2]))});
+  g.scale.setScalar(1.15);return g;
+}
+var fg=frog(0x4fae3f,0xd9e8a0);sc.add(fg);
+/* chameleon */
+var chm=new T.Group(),cmat=M(0x6fae3a,.4),gold=M(0xe8b830,.3);chm.userData.eyes=[];
+chm.add(E(.75,.5,.28,cmat,0,0,0));chm.add(E(.38,.28,.24,cmat,.8,.1,0));chm.add(E(.2,.22,.1,cmat,.62,.4,0));chm.add(E(.24,.14,.2,cmat,1.08,.04,0));
+for(var q=0;q<7;q++)chm.add(E(.05,.09,.05,cmat,-.5+q*.17,.5-Math.abs(q-3)*.02,0));
+[-1,1].forEach(function(k){var ge=new T.Group();ge.position.set(.88,.3,k*.2);ge.add(E(.15,.15,.15,cmat));ge.add(E(.075,.075,.075,gold,.1,.03,k*.07));ge.add(E(.035,.035,.035,blk,.16,.04,k*.1));chm.add(ge);chm.userData.eyes.push(ge)});
+[[.4,.28],[.4,-.28],[-.4,.28],[-.4,-.28]].forEach(function(l){chm.add(E(.07,.32,.07,cmat,l[0],-.38,l[1]));chm.add(E(.16,.05,.12,cmat,l[0],-.62,l[1]))});
+var tl=new T.Mesh(new T.TorusGeometry(.5,.07,8,40,Math.PI*3.4),cmat);tl.position.set(-.8,-.15,0);tl.rotation.z=Math.PI*.9;chm.add(tl);
+var br=new T.Mesh(CG,M(0x5a3d22,.8));br.scale.set(.09,3.4,.09);br.rotation.z=Math.PI/2;br.position.set(0,-.7,0);chm.add(br);
+var ctg=new T.Group();ctg.position.set(1.2,.02,0);var tc=new T.Mesh(CG,M(0xe0707a,.5));tc.scale.set(.025,1,.025);tc.rotation.z=Math.PI/2;tc.position.x=.5;ctg.add(tc);ctg.add(E(.09,.09,.09,M(0xd0505a,.5),1,0,0));chm.add(ctg);
+chm.rotation.y=.4;sc.add(chm);
+/* tortoise */
+var c2=document.createElement('canvas');c2.width=c2.height=256;var x2=c2.getContext('2d');
+x2.fillStyle='#4a3519';x2.fillRect(0,0,256,256);
+for(var yy=0;yy<5;yy++)for(var xx=0;xx<5;xx++){var gr=x2.createRadialGradient(xx*52+26,yy*52+26,3,xx*52+26,yy*52+26,30);gr.addColorStop(0,'#c19a52');gr.addColorStop(1,'#7a5a2e');x2.fillStyle=gr;x2.beginPath();x2.moveTo(xx*52+8,yy*52+8);x2.lineTo(xx*52+46,yy*52+8);x2.lineTo(xx*52+46,yy*52+46);x2.lineTo(xx*52+8,yy*52+46);x2.closePath();x2.fill()}
+var t2=new T.CanvasTexture(c2),tor=new T.Group(),sk=M(0x9b8f5a,.7);tor.userData.legs=[];
+var shell=new T.Mesh(new T.SphereGeometry(1,28,18,0,Math.PI*2,0,Math.PI/2),new T.MeshStandardMaterial({map:t2,roughness:.6}));shell.scale.set(1.3,.85,1.05);tor.add(shell);
+tor.add(E(1.28,.1,1.02,M(0xd8c690,.7),0,0,0));
+var th=new T.Group();th.position.set(1.25,.2,0);th.add(E(.3,.18,.18,sk,0,0,0));th.add(E(.28,.2,.2,sk,.3,.04,0));
+[-1,1].forEach(function(k){th.add(E(.04,.04,.04,blk,.45,.1,k*.12))});tor.add(th);tor.userData.head=th;
+[[.7,.55],[.7,-.55],[-.7,.55],[-.7,-.55]].forEach(function(l,i){var lg=new T.Group();lg.position.set(l[0],-.05,l[1]);lg.add(E(.22,.32,.2,sk,0,-.22,0));lg.userData.ph=i%3?0:Math.PI;tor.add(lg);tor.userData.legs.push(lg)});
+tor.add(E(.2,.08,.08,sk,-1.35,.02,0));tor.rotation.y=.35;sc.add(tor);
+/* fireflies */
+var NP=90,pg=new T.BufferGeometry(),pa=new Float32Array(NP*3),ps=new Float32Array(NP),pph=new Float32Array(NP);
+for(var j=0;j<NP;j++){pa[j*3]=(Math.random()-.5)*20;pa[j*3+1]=(Math.random()-.5)*11;pa[j*3+2]=(Math.random()-.5)*9-1.5;ps[j]=Math.random()<.18?9+Math.random()*10:2.5+Math.random()*4;pph[j]=Math.random()*6.283}
+pg.setAttribute('position',new T.BufferAttribute(pa,3));pg.setAttribute('aSize',new T.BufferAttribute(ps,1));pg.setAttribute('aPh',new T.BufferAttribute(pph,1));
+var pm2=new T.ShaderMaterial({transparent:true,depthWrite:false,blending:T.AdditiveBlending,uniforms:{uT:{value:0},uPx:{value:Math.min(window.devicePixelRatio||1,2)}},
+vertexShader:'attribute float aSize;attribute float aPh;uniform float uT;uniform float uPx;varying float vA;void main(){vec3 p=position;p.x+=sin(uT*.35+aPh)*.35;p.y+=cos(uT*.28+aPh*1.7)*.3+sin(uT*.5+aPh)*.1;vec4 mv=modelViewMatrix*vec4(p,1.);gl_Position=projectionMatrix*mv;float pulse=.5+.5*sin(uT*(.8+aPh*.15)+aPh*3.);vA=.15+.85*pulse*pulse;gl_PointSize=aSize*uPx*(34./-mv.z)*(.7+.5*pulse);}',
+fragmentShader:'varying float vA;void main(){float d=length(gl_PointCoord-.5);float core=smoothstep(.5,0.,d);float glow=core*core*(.35+.65*core);vec3 col=mix(vec3(.5,.85,.12),vec3(1.,.98,.65),pow(core,5.));gl_FragColor=vec4(col,glow*vA);}'});
+var pts=new T.Points(pg,pm2);pts.frustumCulled=false;sc.add(pts);
+var CFG={snake:{file:'models/snake.glb',size:6,ry:Math.PI/2,speed:1.8},chameleon:{file:'models/chameleon.glb',size:2.8,ry:Math.PI/2,speed:.9},frog:{file:'models/frog.glb',size:1.8,ry:Math.PI/2,speed:2.2},tortoise:{file:'models/tortoise.glb',size:3.2,ry:Math.PI/2,speed:.5}};
+var REAL={},ld=T.GLTFLoader?new T.GLTFLoader():null;
+if(ld)Object.keys(CFG).forEach(function(k){var c=CFG[k];ld.load(c.file,function(g){try{
+ var root=g.scene,box=new T.Box3().setFromObject(root),sz=box.getSize(new T.Vector3()),ct=box.getCenter(new T.Vector3()),mx=Math.max(sz.x,sz.y,sz.z)||1;
+ root.position.sub(ct);var holder=new T.Group();holder.add(root);holder.scale.setScalar(c.size/mx);
+ var pv=new T.Group();pv.add(holder);var u=pv.userData={c:c,x:0,y:0,face:1,yaw:c.ry,tilt:0,mixer:null,walk:null,idle:null};
+ if(g.animations&&g.animations.length){u.mixer=new T.AnimationMixer(root);
+  var wk=g.animations.filter(function(a){return /walk|run|crawl|slither|move|swim/i.test(a.name)})[0]||g.animations[0];
+  var id=g.animations.filter(function(a){return /idle|stand|rest|breath/i.test(a.name)})[0];
+  u.walk=u.mixer.clipAction(wk);u.walk.play();if(id&&id!==wk){u.idle=u.mixer.clipAction(id);u.idle.play();u.idle.setEffectiveWeight(0)}}
+ pv.visible=false;sc.add(pv);REAL[k]=pv}catch(e){}},undefined,function(){})});
+function realUpdate(t,dt,W){var map={snake:0,chameleon:1,frog:2,tortoise:3},S=Math.min(1.6,hw/3);
+ Object.keys(REAL).forEach(function(k){var p=REAL[k],u=p.userData,w=W[map[k]];
+  if(k==='snake'){body.visible=false;hg.visible=false}else{({chameleon:chm,frog:fg,tortoise:tor})[k].visible=false}
+  p.visible=w>.02;if(!p.visible){return}if(u.c.hop){var mu=u.mat.uniforms,now=t;if(u.hs===undefined){u.hs=-1;u.last=-9;u.x=hw*.15;u.y=-hh*.18}
+var cx=act?px:u.x,cy=act?py:u.y,ddx=cx-u.x,ddy=cy-u.y,dist=Math.sqrt(ddx*ddx+ddy*ddy),moving=act&&(now-(window.__la||-99)<.6);
+if(u.hs<0&&moving&&dist>1.3&&now-u.last>.25){u.hs=0;u.x0=u.x;u.y0=u.y;var hd=Math.min(dist-.7,2.4);u.x1=Math.max(-(hw-1.9),Math.min(hw-1.9,u.x+ddx/dist*hd));u.y1=Math.max(-hh+1.4,Math.min(hh-2.2,u.y+ddy/dist*hd));u.face=ddx>0?-1:1}
+var sx=1,sy=1,lift=0,rz=0;
+if(u.hs>=0){u.hs+=dt/.62;var s=u.hs;
+ if(s<.18){var k=s/.18;sy=1-.14*k;sx=1+.08*k}
+ else if(s<.82){var q=(s-.18)/.64,e=q<.5?2*q*q:1-Math.pow(-2*q+2,2)/2;u.x=u.x0+(u.x1-u.x0)*e;u.y=u.y0+(u.y1-u.y0)*e;lift=Math.sin(Math.PI*q)*1.15;sy=1+.1*Math.sin(Math.PI*q);sx=1-.05*Math.sin(Math.PI*q);rz=-u.face*.15*Math.sin(Math.PI*q)}
+ else if(s<1){var k2=(s-.82)/.18;sy=1-.12*(1-k2);sx=1+.07*(1-k2);u.x=u.x1;u.y=u.y1}
+ else{u.hs=-1;u.last=now;u.x=u.x1;u.y=u.y1}}
+u.fx+=(u.face-u.fx)*Math.min(1,dt*9);
+p.position.set(u.x,u.y+lift,0);p.rotation.set(0,0,rz);p.scale.set(S*w*u.fx*sx,S*w*sy,S*w);
+mu.uT.value=t;mu.uSp.value=0;mu.uLy.value=act?Math.max(-1,Math.min(1,(py-u.y)/3)):Math.sin(t*.4)*.4;return}
+if(u.c.still){var bx=hw>4?hw*.28:0,ox=act?Math.max(-1,Math.min(1,px/hw))*.35:Math.sin(t*.3)*.2,oy=act?Math.max(-1,Math.min(1,py/hh))*.2:Math.sin(t*.4)*.1;u.x+=(bx+ox-u.x)*Math.min(1,dt*2);u.y+=(oy+Math.sin(t*.7)*.06-u.y)*Math.min(1,dt*2);p.position.set(u.x,u.y,0);p.rotation.set(0,0,(act?(px-u.x)/hw:0)*-.03+Math.sin(t*.5)*.01);p.scale.setScalar(S*w*1.1);var mu=u.mat.uniforms;mu.uT.value=t;mu.uSp.value=0;mu.uLy.value=act?Math.max(-1,Math.min(1,(py-u.y)/3)):Math.sin(t*.4)*.4;return}
+  var tx=act?px:Math.sin(t*.3+map[k])*hw*.55,ty=act?py:(-hh*.2+Math.sin(t*.5)*.6),dx=tx-u.x,dy=ty-u.y,d=Math.sqrt(dx*dx+dy*dy);
+  var sp=d>.7?Math.min(u.c.speed*(d>3?1.7:1),d*1.5):0;
+  if(d>.05){u.x+=dx/d*sp*dt;u.y+=dy/d*sp*dt}
+  if(Math.abs(dx)>.2)u.face=dx>0?1:-1;
+  var yt=u.face>0?u.c.ry-.35:u.c.ry+Math.PI+.35;u.yaw+=(yt-u.yaw)*Math.min(1,dt*4);
+  var tl=sp>0?u.face*Math.atan2(dy,Math.abs(dx)+.001)*.5:0;u.tilt+=(tl-u.tilt)*Math.min(1,dt*4);
+  p.position.set(u.x,u.y,0);if(u.c.sprite){u.fx+=(u.face-u.fx)*Math.min(1,dt*7);p.rotation.set(0,0,u.tilt*.5);p.scale.set(S*w*u.fx,S*w,S*w);u.mat.uniforms.uT.value=t;u.mat.uniforms.uSp.value=Math.min(1,sp/u.c.speed);u.mat.uniforms.uLy.value=act?Math.max(-1,Math.min(1,(py-u.y)/3)):Math.sin(t*.4)*.4}else{p.rotation.set(0,u.yaw,u.tilt);p.scale.setScalar(S*w)}
+  if(u.mixer){var mv=sp>0?1:0;if(u.idle){u.walk.setEffectiveWeight(mv);u.idle.setEffectiveWeight(1-mv)}else{u.walk.setEffectiveWeight(1)}
+   u.mixer.timeScale=u.idle?(.5+sp/u.c.speed*.8):(sp>0?(.5+sp/u.c.speed*.8):.25);u.mixer.update(dt)}})}
+var VS='varying vec2 vUv;uniform float uT,uSp,uLy;uniform vec2 uSz;vec2 rot(vec2 p,vec2 c,float a){float s=sin(a),co=cos(a);vec2 d=p-c;return c+vec2(co*d.x-s*d.y,s*d.x+co*d.y);}vec2 P(vec2 n){return vec2((n.x-.5)*uSz.x,(.5-n.y)*uSz.y);}void main(){vUv=uv;vec2 p=position.xy;float u=uv.x,v=1.-uv.y;float wb=(1.-smoothstep(.55,.66,u))*(1.-smoothstep(.55,.68,v));vec2 cb=P(vec2(.38,.55));p.y=mix(p.y,cb.y+(p.y-cb.y)*(1.+.013*sin(uT*1.7)),wb);float wh=smoothstep(0.54,0.62,u)*(1.-smoothstep(.50,.60,v));float aH=uLy*.11+sin(uT*.9)*.01;p=mix(p,rot(p,P(vec2(0.594,0.219)),aH),wh);gl_Position=projectionMatrix*modelViewMatrix*vec4(p,position.z,1.);}';
+var FS='varying vec2 vUv;uniform sampler2D map;void main(){vec4 c=texture2D(map,vUv);c.a*=smoothstep(0.,.09,vUv.y)*(1.-smoothstep(.88,1.,vUv.x));if(c.a<.03)discard;gl_FragColor=c;}';
+new T.TextureLoader().load('images/chameleon.png',function(tex){try{
+ tex.minFilter=T.LinearFilter;tex.generateMipmaps=false;var Wd=3.4,Hd=Wd*tex.image.height/tex.image.width;
+ var mat=new T.ShaderMaterial({transparent:true,side:T.DoubleSide,depthWrite:false,uniforms:{map:{value:tex},uT:{value:0},uSp:{value:0},uLy:{value:0},uSz:{value:new T.Vector2(Wd,Hd)}},vertexShader:VS,fragmentShader:FS});
+ var m=new T.Mesh(new T.PlaneGeometry(Wd,Hd,60,44),mat);m.frustumCulled=false;var pv=new T.Group();pv.add(m);
+ pv.userData={c:{speed:.9,sprite:1,still:1},x:0,y:0,face:1,fx:1,yaw:0,tilt:0,mixer:null,mat:mat};pv.visible=false;sc.add(pv);
+ if(!REAL.chameleon)REAL.chameleon=pv}catch(e){}});
+var VS2='varying vec2 vUv;uniform float uT,uSp,uLy;uniform vec2 uSz;vec2 rot(vec2 p,vec2 c,float a){float s=sin(a),co=cos(a);vec2 d=p-c;return c+vec2(co*d.x-s*d.y,s*d.x+co*d.y);}vec2 P(vec2 n){return vec2((n.x-.5)*uSz.x,(.5-n.y)*uSz.y);}void main(){vUv=uv;vec2 p=position.xy;float u=uv.x,v=1.-uv.y;float wb=smoothstep(0.364,0.484,u);vec2 cb=P(vec2(.55,.62));p.y=mix(p.y,cb.y+(p.y-cb.y)*(1.+.012*sin(uT*1.4)),wb);float wh=1.-smoothstep(0.344,0.444,u);p.x-=wh*(.5+.5*sin(uT*.6))*.07;float wl2=smoothstep(.55,.65,u)*smoothstep(.42,.52,v);p.y+=wl2*max(0.,sin(uT*1.1))*.045;p.x+=wl2*sin(uT*1.1)*.03;float wl3=smoothstep(.30,.40,u)*(1.-smoothstep(.55,.65,u))*smoothstep(.50,.60,v);p.y+=wl3*max(0.,sin(uT*1.1+3.14))*.04;float aH=-uLy*.10+sin(uT*.9)*.012;p=mix(p,rot(p,P(vec2(0.364,0.467)),aH),wh);gl_Position=projectionMatrix*modelViewMatrix*vec4(p,position.z,1.);}';
+var FS2='varying vec2 vUv;uniform sampler2D map;void main(){vec4 c=texture2D(map,vUv);if(c.a<.03)discard;gl_FragColor=c;}';
+new T.TextureLoader().load('images/tortoise.png',function(tex){try{
+ tex.minFilter=T.LinearFilter;tex.generateMipmaps=false;var Wd=3.9,Hd=Wd*tex.image.height/tex.image.width;
+ var mat=new T.ShaderMaterial({transparent:true,side:T.DoubleSide,depthWrite:false,uniforms:{map:{value:tex},uT:{value:0},uSp:{value:0},uLy:{value:0},uSz:{value:new T.Vector2(Wd,Hd)}},vertexShader:VS2,fragmentShader:FS2});
+ var m=new T.Mesh(new T.PlaneGeometry(Wd,Hd,60,44),mat);m.frustumCulled=false;var pv=new T.Group();pv.add(m);
+ pv.userData={c:{speed:.5,sprite:1,still:1},x:0,y:0,face:1,fx:1,yaw:0,tilt:0,mixer:null,mat:mat};pv.visible=false;sc.add(pv);
+ if(!REAL.tortoise)REAL.tortoise=pv}catch(e){}});
+var VS3='varying vec2 vUv;uniform float uT,uSp,uLy;uniform vec2 uSz;vec2 rot(vec2 p,vec2 c,float a){float s=sin(a),co=cos(a);vec2 d=p-c;return c+vec2(co*d.x-s*d.y,s*d.x+co*d.y);}vec2 P(vec2 n){return vec2((n.x-.5)*uSz.x,(.5-n.y)*uSz.y);}void main(){vUv=uv;vec2 p=position.xy;float u=uv.x,v=1.-uv.y;float wb=smoothstep(.20,.32,u);vec2 cb=P(vec2(.5,.62));p.y=mix(p.y,cb.y+(p.y-cb.y)*(1.+.012*sin(uT*1.6)),wb);vec2 tc=P(vec2(.33,.34));vec2 dd=p-tc;float wt=smoothstep(.55,.0,length(dd));p=tc+dd*(1.+.05*sin(uT*2.4)*wt);float wh=(1.-smoothstep(.34,.46,u))*(1.-smoothstep(.40,.52,v));float aH=-uLy*.10+sin(uT*.9)*.012;p=mix(p,rot(p,P(vec2(0.383,0.288)),aH),wh);gl_Position=projectionMatrix*modelViewMatrix*vec4(p,position.z,1.);}';
+var FS3='varying vec2 vUv;uniform sampler2D map;void main(){vec4 c=texture2D(map,vUv);if(c.a<.03)discard;gl_FragColor=c;}';
+new T.TextureLoader().load('images/frog.png',function(tex){try{
+ tex.minFilter=T.LinearFilter;tex.generateMipmaps=false;var Wd=3.7,Hd=Wd*tex.image.height/tex.image.width;
+ var mat=new T.ShaderMaterial({transparent:true,side:T.DoubleSide,depthWrite:false,uniforms:{map:{value:tex},uT:{value:0},uSp:{value:0},uLy:{value:0},uSz:{value:new T.Vector2(Wd,Hd)}},vertexShader:VS3,fragmentShader:FS3});
+ var m=new T.Mesh(new T.PlaneGeometry(Wd,Hd,60,44),mat);m.frustumCulled=false;var pv=new T.Group();pv.add(m);
+ pv.userData={c:{speed:.9,sprite:1,still:1},x:0,y:0,face:1,fx:1,yaw:0,tilt:0,mixer:null,mat:mat};pv.visible=false;sc.add(pv);
+ if(!REAL.frog)REAL.frog=pv}catch(e){}});
+var RBW=0.644,RB=null,rbPos=null,rbG=null;
+(function(){var n=MS+1;rbPos=new Float32Array(n*2*3);var uv=new Float32Array(n*2*2),ix=[];
+ for(var i=0;i<n;i++){uv[i*4]=0;uv[i*4+1]=i/MS;uv[i*4+2]=1;uv[i*4+3]=i/MS;if(i<MS){ix.push(i*2,i*2+1,i*2+2,i*2+1,i*2+3,i*2+2)}}
+ rbG=new T.BufferGeometry();rbG.setAttribute('position',new T.BufferAttribute(rbPos,3));rbG.setAttribute('uv',new T.BufferAttribute(uv,2));rbG.setIndex(ix);
+ var tex=new T.TextureLoader().load('images/snake-strip.png');tex.minFilter=T.LinearFilter;tex.generateMipmaps=false;tex.anisotropy=4;
+ RB=new T.Mesh(rbG,new T.MeshBasicMaterial({map:tex,transparent:true,alphaTest:.08,side:T.DoubleSide,depthWrite:false}));RB.frustumCulled=false;RB.visible=false;sc.add(RB)})();
+function ribbonUpdate(){var HW=.5*RBW;for(var i=0;i<=MS;i++){var t=i/MS;curve.getPoint(t,pt);curve.getTangent(t,tg);var bx=-tg.y,by=tg.x,l=Math.sqrt(bx*bx+by*by)||1;bx/=l;by/=l;var k=i*6;rbPos[k]=pt.x+bx*HW;rbPos[k+1]=pt.y+by*HW;rbPos[k+2]=pt.z;rbPos[k+3]=pt.x-bx*HW;rbPos[k+4]=pt.y-by*HW;rbPos[k+5]=pt.z}rbG.attributes.position.needsUpdate=true}
+var hw=5,hh=5,px=0,py=0,act=0,lw=0,lh=0;
+function rs(){var w=cv.clientWidth,h=cv.clientHeight;if(!w||!h)return false;if(w!==lw||h!==lh){lw=w;lh=h;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();hh=Math.tan(Math.PI/6)*9;hw=hh*cam.aspect}return true}
+function pm(a,b){var q=cv.getBoundingClientRect();if(!q.width)return;px=((a-q.left)/q.width*2-1)*hw;py=-((b-q.top)/q.height*2-1)*hh;act=1;window.__la=performance.now()/1000}
+addEventListener('pointermove',function(e){pm(e.clientX,e.clientY)});
+addEventListener('touchmove',function(e){var q=e.touches[0];if(q)pm(q.clientX,q.clientY)},{passive:true});
+var hx=0,hy=0,t0=0,dir=new T.Vector3();
+function loop(ts){
+  requestAnimationFrame(loop);if(document.hidden||!rs())return;
+  var t=ts/1000,dt=Math.min(t-t0,.05);t0=t;
+  var sy=0;
+  if(t-(window.__ls||0)>22&&t-(window.__la||-99)>10){window.__idx=(window.__idx||0)+1;window.__ls=t}window.__pf=(window.__pf||0)+((window.__idx||0)-(window.__pf||0))*Math.min(1,dt*2.2);var sf=((window.__pf%4)+4)%4,W=[0,1,2,3].map(function(i){var dd=Math.abs(sf-i);dd=Math.min(dd,4-dd);var q=Math.max(0,1-dd*1.4);return q*q*(3-2*q)}),w0=W[0];
+  var tx2=Math.sin(t*.45)*hw*.7+(1-w0)*hw*2.6,ty=Math.cos(t*.33)*hh*.35;
+  if(act&&w0>.5){tx2=tx2*.25+px*.75;ty=ty*.25+py*.75}
+  hx+=(tx2-hx)*Math.min(1,dt*1.8);hy+=(ty-hy)*Math.min(1,dt*1.8);
+  bp[0].set(hx,hy,Math.sin(t*.9)*.5);
+  for(var i=1;i<P;i++){var a=bp[i-1],b=bp[i];
+    var dx=a.x-b.x,dy=a.y-b.y+Math.sin(t*2.6+i*.6)*.03,dz=a.z-b.z,d=Math.sqrt(dx*dx+dy*dy+dz*dz)||1,k=(d-.28)/d;
+    b.x+=dx*k;b.y+=dy*k;b.z+=dz*k*.5}
+  body.visible=false;hg.visible=false;RB.visible=w0>.02;if(w0>.02)ribbonUpdate();
+  dir.copy(bp[0]).sub(bp[2]).normalize();hg.position.copy(bp[0]);hg.quaternion.setFromUnitVectors(Xv,dir);
+  tn.scale.x=Math.sin(t*5)>.55?1:.08;
+  var S=Math.min(2,hw/2.4),sg=[chm,fg,tor],sd=[-1,1,-1];
+  sg.forEach(function(g,i){var w=W[i+1];g.visible=w>.02;if(g.visible){g.scale.setScalar(S*w);g.position.x=sd[i]*(1-w)*hw*1.3+(act?px*.06:0)}});
+  if(chm.visible){chm.position.y=hh*.02+Math.sin(t*.8)*.05;chm.rotation.z=Math.sin(t*.8)*.04;
+    cmat.color.setHSL(.24+.14*Math.sin(t*.5),.65,.42);
+    chm.userData.eyes.forEach(function(e,i){e.rotation.y=Math.sin(t*1.7+i*2)*.6;e.rotation.z=Math.sin(t*1.1+i)*.3});
+    var ph=(t*.4)%1,ex=ph<.2?Math.sin(ph/.2*Math.PI):0;ctg.scale.x=.05+ex*1.6;ctg.position.x=1.2}
+  if(fg.visible){var h=Math.abs(Math.sin(t*1.6)),ext=Math.min(1,h*1.6);
+    fg.position.y=-hh*.3+h*1.6*S*.5;fg.rotation.y=.45;fg.rotation.z=.12-ext*.3;
+    fg.userData.hl.forEach(function(l){l.rotation.z=.5-ext*.9})}
+  if(tor.visible){tor.position.y=-hh*.22;tor.position.x+=Math.sin(t*.4)*hw*.12;
+    tor.rotation.y=.35+Math.sin(t*.4)*.25;shell.rotation.z=Math.sin(t*2)*.02;
+    tor.userData.head.position.x=1.25+Math.sin(t*.7)*.08;
+    tor.userData.legs.forEach(function(l){l.rotation.z=Math.sin(t*2+l.userData.ph)*.4})}
+  pm2.uniforms.uT.value=t;
+  cam.position.x=px*.04;cam.lookAt(0,0,0);
+  realUpdate(t,dt,W);
+  r.render(sc,cam);
+}
+requestAnimationFrame(loop);
+})();
+</script>
+
+<script>
+(function(){var t=document.getElementById('pt');if(!t)return;var hold=0;
+function step(d){var c=t.querySelector('.pc');if(!c)return;var w=c.offsetWidth+12;
+ if(d>0&&t.scrollLeft+t.clientWidth>=t.scrollWidth-4)t.scrollTo({left:0,behavior:'smooth'});
+ else if(d<0&&t.scrollLeft<=4)t.scrollTo({left:t.scrollWidth,behavior:'smooth'});
+ else t.scrollBy({left:d*w,behavior:'smooth'})}
+document.getElementById('pnx').onclick=function(){hold=Date.now();step(1)};
+document.getElementById('pp').onclick=function(){hold=Date.now();step(-1)};
+t.addEventListener('click',function(e){if(e.target.closest('.pc')){hold=Date.now();step(1)}});
+['pointerdown','touchstart','wheel'].forEach(function(ev){t.addEventListener(ev,function(){hold=Date.now()},{passive:true})});
+setInterval(function(){if(!document.hidden&&Date.now()-hold>8000)step(1)},4000);
+})();
+</script>
+<script>
+(function(){var C={"Snake Safety and Snakebite First Aid": ["Why snakes matter and how to avoid bites", "Making your home and yard safer", "Snakebite first aid: what to do and not do", "Getting to a health facility and anti-venom"], "Snake Identification in Uganda": ["Body features that help identify a snake", "Common harmless snakes", "Venomous snakes of Uganda", "What to do when you find a snake"], "Reptiles and Amphibians: The Basics": ["What reptiles and amphibians are", "Where they live", "Threats and conservation", "How you can help"]},login=false,user=null,pv=/preview/.test(location.search);
+var $=function(i){return document.getElementById(i)};
+function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+function show(i,v){$(i).style.display=v?'':'none'}
+function open(){$('cvw').textContent='Welcome'+(user&&user.name?', '+user.name:'')+'!';
+$('cvl').innerHTML=Object.keys(C).map(function(k){return '<div style="border-top:1px solid var(--bd);padding:12px 0"><h3 style="margin:0 0 4px">'+esc(k)+'</h3><ol style="margin:4px 0;padding-left:20px;line-height:1.8">'+C[k].map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ol></div>'}).join('');
+show('gate',0);show('cv',1);if(window.enhanceClasses)window.enhanceClasses();$('cintro').textContent='You are signed in.'}
+$('cs').onclick=function(){login=!login;$('ct').textContent=login?'Log in to your classes':'Create your free account';$('cb').textContent=login?'Log in':'Sign up';$('cn').parentNode.style.display=login?'none':'grid';this.textContent=login?'New here? Create an account':'Already have an account? Log in'};
+$('cf').addEventListener('submit',function(e){e.preventDefault();var m=$('cm');
+ if(window.__hfAuth){window.__hfAuth(login,$('cn').value.trim(),$('ce').value.trim(),$('cp').value,function(u){user=u;open()},function(msg){m.textContent=msg;m.style.display='block'});return}if(pv){user={name:$('cn').value.trim()};open();return}
+ m.textContent='Class accounts are not open yet. Please check back soon.';m.style.display='block'});
+window.__hfOpen=function(u){user=u;open()};$('co').onclick=function(){if(window.__hfSignOut)window.__hfSignOut();user=null;show('cv',0);show('gate',1);$('cintro').textContent='Learn from our team online, in live and recorded classes. Sign up free to get started.';$('classes').scrollIntoView({behavior:'smooth'})};
+})();
+</script>
+<script>
+(function(){var G=[{"t": "photo", "src": "images/gallery/g01.jpg", "cap": "Children set for a forest walk"}, {"t": "photo", "src": "images/gallery/g02.jpg", "cap": "Deforestation in Mabira Forest"}, {"t": "photo", "src": "images/gallery/g03.jpg", "cap": "An in-house class of adults on habitat conservation"}, {"t": "photo", "src": "images/gallery/g04.jpg", "cap": "Mukasa Emmanuel facilitating a public forum on identifying venomous snakes"}, {"t": "photo", "src": "images/gallery/g05.jpg", "cap": "Giving tips on snake handling to local communities in Kiruhura district"}, {"t": "photo", "src": "images/gallery/g06.jpg", "cap": "At Bulange Mengo with the Buganda minister for information, Noah Kiyimba"}, {"t": "photo", "src": "images/gallery/g07.jpg", "cap": "One-on-one engagement at an outreach"}, {"t": "photo", "src": "images/gallery/g08.jpg", "cap": "Community outreach"}, {"t": "photo", "src": "images/gallery/g09.jpg", "cap": "Community talk with families"}, {"t": "photo", "src": "images/gallery/g10.jpg", "cap": "Training at Bombo Barracks (UPDF)"}, {"t": "photo", "src": "images/gallery/g11.jpg", "cap": "Teaching a class at Bombo Barracks"}, {"t": "photo", "src": "images/gallery/g12.jpg", "cap": "Police Senior Command and Staff College, Bwebajja"}, {"t": "photo", "src": "images/gallery/g13.jpg", "cap": "An officer asks a question during an engagement"}, {"t": "photo", "src": "images/gallery/g14.jpg", "cap": "French School Kampala: a class on snakes"}, {"t": "photo", "src": "images/gallery/g15.jpg", "cap": "Sustainable Day 2025: our team"}, {"t": "photo", "src": "images/gallery/g16.jpg", "cap": "Sustainable Day 2025: watch and learn"}, {"t": "photo", "src": "images/gallery/g17.jpg", "cap": "Silverleaf School: children drawing"}, {"t": "photo", "src": "images/gallery/g18.jpg", "cap": "Silverleaf School: a hands-on class"}, {"t": "photo", "src": "images/gallery/g19.jpg", "cap": "Family day out at Dancing Cup, Bugolobi"}, {"t": "photo", "src": "images/gallery/g20.jpg", "cap": "Family day out: meeting reptiles up close"}, {"t": "photo", "src": "images/gallery/g21.jpg", "cap": "Kids nature camp at Bushbaby Lodge"}, {"t": "photo", "src": "images/gallery/g22.jpg", "cap": "Camp group with the Herp Fauna flag"}, {"t": "photo", "src": "images/gallery/g23.jpg", "cap": "Campers learning about reptiles"}, {"t": "photo", "src": "images/gallery/g24.jpg", "cap": "Makerere University biology class"}, {"t": "photo", "src": "images/gallery/g25.jpg", "cap": "Makerere biology students at work"}, {"t": "photo", "src": "images/gallery/g26.jpg", "cap": "Kalangala Infrastructure Services (KIS)"}, {"t": "photo", "src": "images/gallery/g27.jpg", "cap": "Outdoor class with families"}, {"t": "video", "src": "videos/v01.mp4", "poster": "images/gallery/v01.jpg", "cap": "Silverleaf School visit"}, {"t": "video", "src": "videos/v02.mp4", "poster": "images/gallery/v02.jpg", "cap": "A chameleon in the forest"}, {"t": "video", "src": "videos/v03.mp4", "poster": "images/gallery/v03.jpg", "cap": "A team member with a chameleon"}, {"t": "video", "src": "videos/v04.mp4", "poster": "images/gallery/v04.jpg", "cap": "Snake handling practice"}, {"t": "video", "src": "videos/v05.mp4", "poster": "images/gallery/v05.jpg", "cap": "Showing a snake at an event"}, {"t": "video", "src": "videos/v06.mp4", "poster": "images/gallery/v06.jpg", "cap": "An outdoor snake class with children"}, {"t": "video", "src": "videos/v07.mp4", "poster": "images/gallery/v07.jpg", "cap": "Hands-on class with young learners"}, {"t": "video", "src": "videos/v08.mp4", "poster": "images/gallery/v08.jpg", "cap": "Learning outdoors with reptiles"}, {"t": "video", "src": "videos/v09.mp4", "poster": "images/gallery/v09.jpg", "cap": "A classroom session"}, {"t": "video", "src": "videos/v10.mp4", "poster": "images/gallery/v10.jpg", "cap": "Fieldwork in the forest"}, {"t": "video", "src": "videos/v11.mp4", "poster": "images/gallery/v11.jpg", "cap": "A public talk"}, {"t": "video", "src": "videos/v12.mp4", "poster": "images/gallery/v12.jpg", "cap": "A snake awareness event"}, {"t": "poster", "src": "images/gallery/p01.jpg", "cap": "Snake encounter"}, {"t": "poster", "src": "images/gallery/p02.jpg", "cap": "Snakebite season"}, {"t": "poster", "src": "images/gallery/p03.jpg", "cap": "Gaboon viper"}, {"t": "poster", "src": "images/gallery/p04.jpg", "cap": "Where do snakes live"}];var G0=G.slice();window.__galSet=function(x){G=x.concat(G0);draw()};
+var kind='photo',gg=document.getElementById('gg'),ge=document.getElementById('ge'),lb=document.getElementById('lb');
+var M={photo:'Photos are coming soon.',video:'Videos are coming soon.',poster:'Posters are coming soon.'};
+function esc(t){var d=document.createElement('div');d.textContent=t||'';return d.innerHTML.replace(/"/g,'&quot;')}
+function draw(){var L=G.filter(function(x){return x.t===kind});ge.style.display=L.length?'none':'';ge.textContent=M[kind];
+ gg.innerHTML=L.map(function(x){var im=x.t==='video'?x.poster:x.src;return '<div class="gi'+(x.t==='poster'?' gp':'')+'" data-i="'+G.indexOf(x)+'"><img loading="lazy" alt="'+esc(x.cap)+'" src="'+esc(im)+'">'+(x.t==='video'?'<b>&#9654;</b>':'')+'</div>'}).join('')}
+function YT(u){var m=/(?:youtu\.be\/|v=|embed\/|live\/)([\w-]{11})/.exec(u||'');return m&&m[1]}function open(x){lb.innerHTML=(x.t==='video'?(YT(x.src)?'<iframe allowfullscreen src="https://www.youtube.com/embed/'+YT(x.src)+'" style="width:min(100%,900px);aspect-ratio:16/9;border:0"></iframe>':'<video controls autoplay playsinline src="'+esc(x.src)+'"></video>'):'<img alt="" src="'+esc(x.src)+'">')+(x.cap?'<p class="lc">'+esc(x.cap)+'</p>':'');lb.style.display='flex'}
+document.querySelectorAll('.gb').forEach(function(b){b.onclick=function(){kind=b.getAttribute('data-k');document.querySelectorAll('.gb').forEach(function(o){o.classList.toggle('on',o===b)});draw()}});
+gg.addEventListener('click',function(e){var c=e.target.closest('.gi');if(c)open(G[+c.getAttribute('data-i')])});
+document.addEventListener('click',function(e){var z=e.target.closest('img.zoom');if(z)open({t:'photo',src:z.src,cap:z.alt})});
+lb.onclick=function(e){if(e.target.tagName!=='VIDEO'&&e.target.tagName!=='IFRAME'){lb.style.display='none';lb.innerHTML=''}};
+draw();})();
+</script>
+<script>
+(function(){var P={home:['hero','pb','hq','tst','partners','cta'],about:['about'],species:['species'],tours:['tours'],gallery:['gallery'],science:['science'],learn:['learn'],classes:['classes'],partners:['partners'],partner:['partner'],contact:['contact'],news:['news'],faq:['faq'],privacy:['privacy'],terms:['terms'],notfound:['notfound'],snake:['snake'],admin:['admin']};
+var T={home:'Home',about:'About us',species:'Herpetofauna',tours:'Tours',gallery:'Gallery',science:'Report a sighting',learn:'Snake safety',classes:'Classes',partners:'Our partners',partner:'Get involved',contact:'Contact',news:'News',faq:'FAQ',privacy:'Privacy policy',terms:'Terms of use',notfound:'Page not found',snake:'Snake profile',admin:'Team area'};
+function wr(id){var e=document.getElementById(id);if(!e)return null;var q=e.parentElement;return q&&q.classList.contains('band')?q:e}
+var nv=document.getElementById('nv');
+function route(){var raw=(location.hash||'#home').slice(1).split('?'),h=raw[0]||'home',sub='';if(h.indexOf('/')>0){var pp=h.split('/');h=pp[0];sub=pp[1]}if(!P[h])h='notfound';
+ Object.keys(P).forEach(function(k){P[k].forEach(function(id){var w=wr(id);if(w)w.style.display='none'})});
+ P[h].forEach(function(id){var w=wr(id);if(w)w.style.display=''});if(h==='snake'&&window.renderSnake)window.renderSnake(sub);
+ window.__pi=0;document.title=(h==='home'?'Herpetofauna Digital Tourism & Awareness Platform':T[h]+' | Herpetofauna Platform');
+ var m=/topic=([^&]+)/.exec(raw[1]||''),sel=document.getElementById('ctt');if(m&&sel&&h==='contact'){var v=decodeURIComponent(m[1]);[].forEach.call(sel.options,function(o){if(o.text===v)sel.value=v})}
+ document.querySelectorAll('#nv a').forEach(function(a){a.classList.toggle('cur',a.getAttribute('href')==='#'+h)});
+ nv.classList.remove('open');var d=nv.querySelector('.dd');if(d)d.classList.remove('open');window.scrollTo(0,0)}
+var db=nv.querySelector('.ddb');if(db)db.onclick=function(e){e.preventDefault();db.parentNode.classList.toggle('open')};
+window.addEventListener('hashchange',route);route();window.addEventListener('scroll',function(){if(nv.classList.contains('open')&&window.scrollY>40)nv.classList.remove('open')},{passive:true});})();
+</script>
+<script>
+(function(){var $=function(i){return document.getElementById(i)};if(!$('ctf'))return;
+function text(){return 'Hello Herpetofauna Platform, my name is '+$('ctn').value.trim()+'.\nTopic: '+$('ctt').value+'\n\n'+$('ctm').value.trim()+(($('cte').value.trim())?'\n\nContact: '+$('cte').value.trim():'')}
+function ok(){var r=$('ctr');if(!$('ctn').value.trim()||!$('ctm').value.trim()){r.textContent='Please enter your name and a message.';r.style.display='block';return false}r.style.display='none';return true}
+$('ctw').onclick=function(){if(ok())window.open('https://wa.me/256752681903?text='+encodeURIComponent(text()),'_blank')};
+$('ctx').onclick=function(){if(ok())location.href='mailto:herpfauna2@gmail.com?subject='+encodeURIComponent($('ctt').value+' enquiry')+'&body='+encodeURIComponent(text())};
+})();
+</script>
+<script>(function(){var h=document.getElementById('hero');if(h)h.addEventListener('click',function(e){if(e.target.closest('a'))return;window.__idx=(window.__idx||0)+1;window.__ls=performance.now()/1000})})();</script>
+<script>
+(function(){
+var SB_URL='https://wfrutpeqgujguuggcrqi.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndmcnV0cGVxZ3VqZ3V1Z2djcnFpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE4NzE1ODMsImV4cCI6MjEwNzQ0NzU4M30.z2cyIRt0gERmzwFdU_HrmLYtVmZFzUHAL4a_Ai8IWSA';
+var sb=null;try{if(window.supabase)sb=window.supabase.createClient(SB_URL,SB_KEY)}catch(e){}
+var SN=[["eastern-forest-cobra", "Eastern forest cobra", "Naja subfulva"], ["black-mamba", "Black mamba", "Dendroaspis polylepis"], ["green-bush-viper", "Green bush viper", "Atheris squamigera"], ["rough-scaled-bush-viper", "Rough-scaled bush viper", "Atheris hispida"], ["velvety-night-adder", "Velvety night adder", ""], ["east-african-garter-snake", "East African garter snake", "Elapsoidea loveridgei"], ["blandings-tree-snake", "Blanding's tree snake", ""], ["cape-wolf-snake", "Cape wolf snake", ""], ["brown-house-snake", "Brown house snake", ""], ["rock-python", "Rock python", ""]],ST=['To be confirmed','Venomous','Mildly venomous','Not venomous'];
+var DB={snakes:{},classes:[],lessons:[],tours:[],team:[],tst:[],gallery:[],settings:{}},user=null,isTeam=false,isAdmin=false,online=false,me=null;
+var $=function(i){return document.getElementById(i)};
+function esc(t){var d=document.createElement('div');d.textContent=t==null?'':String(t);return d.innerHTML.replace(/"/g,'&quot;')}
+var TBA='<span class="tba">To be added by the team</span>';
+function fr(l,v){return '<div class="fr"><b>'+l+'</b><span>'+(v?esc(v):TBA)+'</span></div>'}
+function sec(l,v){return '<h3>'+l+'</h3><p>'+(v?esc(v).replace(/\n/g,'<br>'):TBA)+'</p>'}
+function yt(u){var m=/(?:youtu\.be\/|v=|embed\/|live\/)([\w-]{11})/.exec(u||'');return m&&m[1]}
+function player(u){var y=yt(u);if(y)return '<iframe src="https://www.youtube.com/embed/'+y+'" allowfullscreen style="width:100%;aspect-ratio:16/9;border:0;border-radius:10px"></iframe>';return '<video controls playsinline src="'+esc(u)+'" style="width:100%;max-height:70vh;border-radius:10px"></video>'}
+/* ---------- loading ---------- */
+async function loadPublic(){if(!sb)return;try{
+ var r=await Promise.all([sb.from('snake_profiles').select('*'),sb.from('tours').select('*').order('sort'),sb.from('team').select('*').order('sort'),sb.from('testimonials').select('*').order('created_at',{ascending:false}),sb.from('gallery_items').select('*').order('sort').order('created_at',{ascending:false}),sb.from('site_settings').select('*'),sb.from('sightings').select('*').order('created_at',{ascending:false}).limit(8)]);
+ if(r[0].error)throw r[0].error;online=true;DB.snakes={};(r[0].data||[]).forEach(function(x){DB.snakes[x.slug]=x});DB.tours=r[1].data||[];DB.team=r[2].data||[];DB.tst=r[3].data||[];DB.gallery=r[4].data||[];DB.settings={};(r[5].data||[]).forEach(function(x){DB.settings[x.key]=x.value});DB.sightings=(r[6].data||[]).filter(function(x){return x.approved})}catch(e){online=false}}
+async function loadPrivate(){if(!sb||!user)return;try{var a=await sb.from('classes').select('*').order('sort'),b=await sb.from('lessons').select('*').order('sort').order('created_at');DB.classes=a.data||[];DB.lessons=b.data||[]}catch(e){}}
+async function afterAuth(){var t=await sb.from('team_members').select('role,status,name').eq('user_id',user.id).maybeSingle();me=t&&t.data?t.data:null;isTeam=!!(me&&me.status==='approved');isAdmin=!!(isTeam&&me.role==='owner');await loadPrivate()}
+var RL={owner:'Owner',instructor:'Instructor',species_editor:'Species editor',communications:'Communications',researcher:'Researcher'};
+var PERM={owner:['*'],instructor:['classes','lessons','live'],species_editor:['snakes','gallery'],communications:['tours','team','testimonials','gallery','messages'],researcher:['snakes','sightings']};
+function can(a){return !!(isTeam&&me&&(me.role==='owner'||(PERM[me.role]||[]).indexOf(a)>-1))}
+/* ---------- rendering ---------- */
+window.renderSnake=function(slug){var i=-1;SN.forEach(function(x,k){if(x[0]===slug)i=k});var box=$('snb');
+ if(i<0){box.innerHTML='<p>Snake not found.</p>';return}
+ var x=SN[i],d=DB.snakes[slug]||{},im=document.querySelector('a.sp[href="#snake/'+slug+'"] img'),pv=SN[(i+9)%10],nx=SN[(i+1)%10],src=d.photo_url||(im&&im.src)||'';
+ document.title=x[1]+' | Herpetofauna Platform';
+ box.className='snb';box.innerHTML='<div class="sn"><div class="sno">'+(src?'<img class="zoom" src="'+esc(src)+'" alt="'+esc(x[1])+'">':'')+'<p class="sub" style="margin:6px 0 0;font-size:13px">Photo credit: '+(d.credit?esc(d.credit):TBA)+'</p></div>'+
+ '<div><h2 style="margin:0">'+esc(x[1])+'</h2><p class="sci" style="margin:0 0 6px">'+esc(x[2])+'</p><div class="chips"><span class="chip">'+esc(d.status||'Venom status: to be confirmed')+'</span></div>'+fr('Size',d.size)+fr('Habitat',d.habitat)+fr('Where in Uganda',d.uganda)+fr('Diet',d.diet)+'</div></div>'+
+ sec('About this snake',d.about)+sec('Behaviour',d.behaviour)+sec('Venom and bite effects',d.venom)+
+ '<h3>If someone is bitten</h3><p>'+esc(d.firstaid||'Keep the person calm and still, and take them to the nearest health facility immediately. Do not cut the wound, suck the venom or tie anything tightly.')+'</p>'+
+ '<div class="snn"><a href="#snake/'+pv[0]+'">&larr; '+esc(pv[1])+'</a><a href="#snake/'+nx[0]+'">'+esc(nx[1])+' &rarr;</a></div>'}
+function tourCard(t){return '<div class="card"><h3>'+esc(t.title)+'</h3><p>'+esc(t.description||'')+'</p><div class="tf"><div><b>Duration</b><span>'+esc(t.duration||'On request')+'</span></div><div><b>Group size</b><span>'+esc(t.group_size||'On request')+'</span></div><div><b>Price</b><span>'+esc(t.price||'On request')+'</span></div><div><b>Dates</b><span>'+esc(t.dates||'On request')+'</span></div>'+(t.includes?'<div><b>Includes</b><span>'+esc(t.includes)+'</span></div>':'')+'</div><a class="btn" href="#contact?topic=Tours" style="font-size:14px;padding:9px 18px">Enquire</a></div>'}
+var DEFT=[{title:'Custom herping trip',description:'Tell us your ideal day of herping in Uganda and we plan a trip for you.',includes:'Accommodation, meals and transport'},{title:'Reptile population survey',description:'We carry out thorough population surveys in your natural area of operation.'}];
+function renderTours(){var e=$('tl');if(e)e.innerHTML=(online?DB.tours:DEFT).map(tourCard).join('')}
+function renderTst(){var s=$('tst'),e=$('tstl');if(!e)return;e.innerHTML=DB.tst.map(function(t){return '<div class="tcard"><p>&ldquo;'+esc(t.quote)+'&rdquo;</p><small>'+esc(t.name)+(t.role?', '+esc(t.role):'')+'</small></div>'}).join('');s.classList.toggle('empty',!DB.tst.length)}
+function renderTeam(){var g=$('tmg');if(!g||!online||!DB.team.length)return;g.innerHTML=DB.team.map(function(m){var ini=(m.name||'').split(' ').slice(0,2).map(function(w){return w[0]}).join('');return '<div class="feat" style="text-align:center"><div class="pi" style="margin:0 auto 10px"><span>'+esc(ini)+'</span>'+(m.photo_url?'<img src="'+esc(m.photo_url)+'" alt="'+esc(m.name)+'" onload="this.previousElementSibling.remove()">':'')+'</div><h3>'+esc(m.name)+'</h3><p>'+esc(m.role||'')+'</p><details class="bio"><summary>Read bio</summary><p>'+(m.bio?esc(m.bio).replace(/\n/g,'<br>'):'Bio coming soon.')+'</p></details></div>'}).join('')}
+function renderSnakeCards(){Object.keys(DB.snakes).forEach(function(k){var d=DB.snakes[k];if(!d.photo_url)return;var im=document.querySelector('a.sp[href="#snake/'+k+'"] img');if(im)im.src=d.photo_url})}
+function renderGallery(){if(!online||!window.__galSet)return;window.__galSet(DB.gallery.map(function(x){return {t:x.kind,src:x.url,poster:x.poster_url||x.url,cap:x.caption||''}}))}
+function renderSightings(){var e=$('recent');if(!e)return;var L=DB.sightings||[];e.innerHTML=L.length?'<h3 style="margin:0;font-family:system-ui">Recent sightings</h3>'+L.map(function(x){return '<div class="card"><b>'+esc(x.species)+'</b> &middot; '+esc(x.kind)+' &middot; '+esc(x.status)+'<br>'+esc(x.place)+', '+esc(x.seen_on)+(x.notes?'<br><span style="color:var(--mut)">'+esc(x.notes)+'</span>':'')+'</div>'}).join(''):''}
+window.enhanceClasses=function(){var box=$('cvl');if(!box||!online||!user||!DB.classes.length)return;
+ var live=DB.settings.live_stream_url;$('cvlive').innerHTML=live?'<h3 style="margin:14px 0 6px">&#128308; Live class</h3>'+player(live):'';
+ box.innerHTML=DB.classes.map(function(c){var det=[c.teacher&&'Teacher: '+c.teacher,c.schedule&&'Schedule: '+c.schedule,c.price&&'Price: '+c.price,c.mode&&'Format: '+c.mode].filter(Boolean),L=DB.lessons.filter(function(l){return l.class_id===c.id});
+  return '<div style="border-top:1px solid var(--bd);padding:12px 0"><h3 style="margin:0 0 4px">'+esc(c.title)+'</h3><p class="sub" style="margin:0 0 6px">'+(det.length?det.map(esc).join(' &middot; '):'Teacher, schedule and price: '+TBA)+'</p>'+
+  (L.length?'<ol style="margin:4px 0;padding-left:20px;line-height:1.8">'+L.map(function(l){return '<li>'+(l.video_url?'<a href="#" data-lv="'+esc(l.video_url)+'" style="color:var(--acc)">'+esc(l.title)+'</a>':esc(l.title))+(l.notes?' <small style="color:var(--mut)">'+esc(l.notes)+'</small>':'')+'</li>'}).join('')+'</ol>':'<p class="sub" style="margin:4px 0">Lessons will be added soon.</p>')+'</div>'}).join('')}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-lv]');if(!a)return;e.preventDefault();var p=$('cvp');p.style.padding='0';p.style.background='none';p.innerHTML=player(a.getAttribute('data-lv'));p.scrollIntoView({behavior:'smooth',block:'center'})});
+function all(){renderTours();renderTst();renderTeam();renderSnakeCards();renderGallery();renderSightings();if(location.hash.indexOf('#snake/')===0)window.renderSnake(location.hash.slice(7).split('?')[0])}
+/* ---------- student and team sign-in ---------- */
+window.__hfAuth=async function(login,name,email,pass,ok,fail){if(!sb||!online){fail('Sign-in could not reach the server. Please check your connection and try again.');return}
+ try{var r;if(login){r=await sb.auth.signInWithPassword({email:email,password:pass})}else{r=await sb.auth.signUp({email:email,password:pass,options:{data:{name:name}}})}
+  if(r.error)throw r.error;if(!r.data.session){fail('Almost done. Check your email to confirm your account, then log in.');return}
+  user=r.data.user;await afterAuth();ok({name:(user.user_metadata&&user.user_metadata.name)||''})}catch(e){fail(e.message||'Something went wrong. Please try again.')}};
+window.__hfSignOut=function(){if(sb)sb.auth.signOut();user=null;isTeam=false};
+/* ---------- sightings and contact ---------- */
+var sf=$('f');if(sf){$('dt').value=new Date().toISOString().slice(0,10);sf.addEventListener('submit',async function(e){e.preventDefault();var m=$('msg');m.style.display='block';
+ if(!sb||!online){m.textContent='The server could not be reached. Please try again later.';return}
+ try{var photo=null,f=$('spf')&&$('spf').files[0];if(f){var p='sightings/'+Date.now()+'-'+Math.random().toString(36).slice(2,8)+'.'+(f.name.split('.').pop()||'jpg').toLowerCase();photo=await upl(f,'sightings','sighting')}
+  var rec={species:$('sp').value.trim(),kind:$('ty').value,place:$('pl').value.trim(),seen_on:$('dt').value,status:$('st').value,notes:$('nt').value.trim(),reporter:$('nm').value.trim(),photo_url:photo};
+  var r=await sb.from('sightings').insert(rec);if(r.error)throw r.error;m.textContent='Thank you! Your sighting was sent to our team for review.';sf.reset();$('dt').value=new Date().toISOString().slice(0,10)}catch(err){m.textContent='Sorry, your sighting could not be sent. Please try again.'}})}
+['ctw','ctx'].forEach(function(id){var b=$(id);if(b)b.addEventListener('click',function(){if(!sb||!online)return;var n=$('ctn').value.trim(),t=$('ctm').value.trim();if(n&&t)sb.from('contact_messages').insert({name:n,contact:$('cte').value.trim(),topic:$('ctt').value,message:t})})});
+/* ---------- team area ---------- */
+var CMS={},cur='snake',ads=$('ads'),adg=$('adg');
+function defs(){CMS={
+ snake:{l:'Snake profile',t:'snake_profiles',key:'slug',f:[['slug','Snake','sel',SN.map(function(x){return [x[0],x[1]]})],['status','Venom status','sel',ST],['size','Size'],['habitat','Habitat'],['uganda','Where in Uganda'],['diet','Diet'],['about','About this snake','ta'],['behaviour','Behaviour','ta'],['venom','Venom and bite effects','ta'],['firstaid','First aid note','ta'],['credit','Photo credit'],['photo_url','Photo (optional, replaces the current one)','file']],list:function(){return []}},
+ cls:{l:'Class',t:'classes',edit:1,f:[['id','Class','sel',[['','New class']].concat(DB.classes.map(function(c){return [c.id,c.title]}))],['title','Class name'],['teacher','Teacher'],['schedule','Schedule'],['price','Price'],['mode','Format (live, recorded)']]},
+ lesson:{l:'Lesson',t:'lessons',f:[['class_id','Class','sel',DB.classes.map(function(c){return [c.id,c.title]})],['title','Lesson title'],['video_url','YouTube link (upload the video to YouTube as Unlisted, then paste the link)'],['notes','Notes','ta']],list:function(){return DB.lessons.map(function(x){return [x.id,x.title]})}},
+ tour:{l:'Tour',t:'tours',edit:1,f:[['id','Tour','sel',[['','New tour']].concat(DB.tours.map(function(c){return [c.id,c.title]}))],['title','Tour name'],['description','Description','ta'],['duration','Duration'],['group_size','Group size'],['price','Price'],['dates','Dates'],['includes','What is included']]},
+ team:{l:'Team member',t:'team',edit:1,f:[['id','Team member','sel',[['','New team member']].concat(DB.team.map(function(c){return [c.id,c.name]}))],['name','Name'],['role','Role'],['bio','Bio','ta'],['photo_url','Photo (optional)','file']]},
+ tst:{l:'Testimonial',t:'testimonials',f:[['quote','What they said','ta'],['name','Name'],['role','Role or organisation']],list:function(){return DB.tst.map(function(x){return [x.id,x.quote.slice(0,60)]})}},
+ gal:{l:'Gallery upload',t:'gallery_items',f:[['kind','Type','sel',[['photo','Photo'],['video','Video'],['poster','Poster']]],['caption','Caption'],['url','Photo or poster file (not needed for videos)','file'],['video_link','YouTube link (for videos)'],['poster_url','Video cover picture (optional)','file']],list:function(){return DB.gallery.map(function(x){return [x.id,(x.caption||x.kind)+' ('+x.kind+')']})}},
+ live:{l:'Live class link',t:'site_settings',f:[['value','YouTube live link (clear it to stop)']]}};
+ if(isAdmin)CMS.members={l:'Team members and approvals',custom:1};CMS.mypw={l:'My password',custom:1};if(can('sightings')||can('messages'))CMS.review={l:'Review sightings and messages',review:1};var AREA={snake:'snakes',cls:'classes',lesson:'lessons',tour:'tours',team:'team',tst:'testimonials',gal:'gallery',live:'live'};Object.keys(AREA).forEach(function(k){if(!can(AREA[k]))delete CMS[k]})}
+async function upl(file,folder,mode){var s=await sb.auth.getSession(),tok=(mode!=='sighting'&&s.data&&s.data.session)?s.data.session.access_token:SB_KEY;var fd=new FormData();fd.append('file',file);fd.append('mode',mode||'team');var r=await fetch(SB_URL+'/functions/v1/tg-upload',{method:'POST',headers:{Authorization:'Bearer '+tok,apikey:SB_KEY},body:fd});var j={};try{j=await r.json()}catch(e){}if(!r.ok)throw new Error(j.error||'Upload failed');return j.url}
+function menu(){defs();ads.innerHTML='';Object.keys(CMS).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=CMS[k].l;ads.appendChild(o)});ads.value=cur in CMS?cur:Object.keys(CMS)[0];cur=ads.value}
+if(ads)ads.onchange=async function(){cur=ads.value;if(cur==='invite'&&isAdmin){var r=await sb.from('team_invites').select('*');DB.invites=r.data||[]}form()};
+function opt(v){return Array.isArray(v)?[v[0],v[1]]:[v,v]}
+function rowsFor(k){return k==='cls'?DB.classes:k==='tour'?DB.tours:k==='team'?DB.team:k==='snake'?Object.keys(DB.snakes).map(function(s){return DB.snakes[s]}):[]}
+function form(){defs();var c=CMS[cur];adg.style.display=(c.review||c.custom)?'none':'';$('adlst').innerHTML='';if(c.custom){customView(cur);return}if(c.review){review();return}
+ adg.innerHTML=c.f.map(function(f){var id='f_'+f[0],h='<label>'+f[1];if(f[2]==='sel')h+='<select id="'+id+'">'+f[3].map(function(v){var p=opt(v);return '<option value="'+esc(p[0])+'">'+esc(p[1])+'</option>'}).join('')+'</select>';else if(f[2]==='ta')h+='<textarea id="'+id+'" rows="3"></textarea>';else if(f[2]==='file')h+='<input type="file" id="'+id+'"'+' accept="image/*"'+'>';else h+='<input id="'+id+'">';return h+'</label>'}).join('')+'<button class="btn" type="submit">Save</button><div class="msg" id="adr"></div>';
+ if(c.edit||cur==='snake'){var k0=$('f_'+c.f[0][0]);k0.onchange=fill;fill()}
+ listing()}
+function fill(){var c=CMS[cur],k=$('f_'+c.f[0][0]).value,row=null;if(cur==='snake')row=DB.snakes[k];else row=rowsFor(cur).filter(function(r){return r.id===k})[0];
+ c.f.slice(1).forEach(function(f){var e=$('f_'+f[0]);if(!e||f[2]==='file')return;e.value=(row&&row[f[0]])||(f[2]==='sel'?e.value:'')})}
+function listing(){var c=CMS[cur],L=$('adlst'),items=c.list?c.list():[],h='';
+ if(cur==='cls'||cur==='tour'||cur==='team')items=rowsFor(cur).map(function(r){return [r.id,r.title||r.name]});
+ if(items.length)h='<h3 style="margin:0 0 6px">Saved</h3>'+items.map(function(x){return '<div class="dl"><span>'+esc(x[1])+'</span>'+(cur==='snake'?'':'<button data-i="'+esc(x[0])+'">Delete</button>')+'</div>'}).join('');L.innerHTML=h;
+ L.querySelectorAll('button').forEach(function(b){b.onclick=async function(){if(!confirm('Delete this item?'))return;var col=cur==='invite'?'email':'id';var r=await sb.from(c.t).delete().eq(col,b.getAttribute('data-i'));if(r.error){alert(r.error.message);return}await refresh();form()}})}
+async function refresh(){await loadPublic();await loadPrivate();if(cur==='invite'&&isAdmin){var r=await sb.from('team_invites').select('*');DB.invites=r.data||[]}all()}
+if(adg)adg.addEventListener('submit',async function(e){e.preventDefault();var c=CMS[cur],o={},r=$('adr');r.style.display='block';r.textContent='Saving...';
+ try{for(var i=0;i<c.f.length;i++){var f=c.f[i],el=$('f_'+f[0]);if(f[2]==='file'){if(el.files[0]){o[f[0]]=await upl(el.files[0],cur==='lesson'?'lessons':cur==='gal'?'gallery':cur==='snake'?'snakes':'team');if(f[0]==='video_file'){o.video_url=o.video_file;delete o.video_file}}else if(f[0]==='video_file'){}}else o[f[0]]=el.value.trim()}
+  delete o.video_file;var res;
+  if(cur==='snake'){o.updated_at=new Date().toISOString();res=await sb.from('snake_profiles').upsert(o)}
+  else if(cur==='live'){res=await sb.from('site_settings').upsert({key:'live_stream_url',value:o.value})}
+  else if(cur==='gal'){if(o.kind==='video'){if(!o.video_link)throw new Error('Please paste the YouTube link.');o.url=o.video_link;var yy=yt(o.video_link);if(!o.poster_url&&yy)o.poster_url='https://img.youtube.com/vi/'+yy+'/hqdefault.jpg'}else if(!o.url)throw new Error('Please choose a picture.');delete o.video_link;res=await sb.from('gallery_items').insert(o)}
+  else if(c.edit){var id=o.id;delete o.id;if(id)res=await sb.from(c.t).update(o).eq('id',id);else res=await sb.from(c.t).insert(o)}
+  else{if(cur==='lesson'&&!o.title)throw new Error('Please add a lesson title.');res=await sb.from(c.t).insert(o)}
+  if(res.error)throw res.error;await refresh();var keep=cur;form();$('adr').style.display='block';$('adr').textContent='Saved. It is now live on the website.'}catch(err){r.textContent='Could not save: '+(err.message||'please try again')}});
+function gen(){var a='abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789',b=new Uint32Array(10);crypto.getRandomValues(b);var s='Herp-';for(var i=0;i<8;i++)s+=a[b[i]%a.length];return s+(100+b[9]%900)}
+async function callTeam(body){var s=await sb.auth.getSession();var r=await fetch(SB_URL+'/functions/v1/team-manage',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+s.data.session.access_token,apikey:SB_KEY},body:JSON.stringify(body)});var j={};try{j=await r.json()}catch(e){}if(!r.ok)throw new Error(j.error||'Something went wrong');return j}
+async function customView(k){var L=$('adlst');
+ if(k==='mypw'){L.innerHTML='<h3 style="margin:0 0 8px">Change my password</h3><form id="pwf" style="max-width:420px"><label>New password (at least 8 characters)<input id="pw1" type="password" autocomplete="new-password"></label><label>Repeat it<input id="pw2" type="password" autocomplete="new-password"></label><button class="btn" type="submit">Change password</button><div class="msg" id="pwm"></div></form>';
+  $('pwf').onsubmit=async function(e){e.preventDefault();var m=$('pwm');m.style.display='block';if($('pw1').value.length<8){m.textContent='Use at least 8 characters.';return}if($('pw1').value!==$('pw2').value){m.textContent='The two passwords do not match.';return}var r=await sb.auth.updateUser({password:$('pw1').value});m.textContent=r.error?r.error.message:'Your password was changed.';if(!r.error)$('pwf').reset()};return}
+ var r=await sb.from('team_members').select('*').order('created_at'),rows=r.data||[];rows.sort(function(x,y){return (x.status==='pending'?0:1)-(y.status==='pending'?0:1)});var pend=rows.filter(function(x){return x.status==='pending'}).length;
+ L.innerHTML='<h3 style="margin:0 0 6px">Team members</h3>'+(pend?'<div class="note" style="margin:0 0 10px"><b>'+pend+'</b> waiting for your approval</div>':'<p class="sub">Nobody is waiting for approval.</p>')+rows.map(function(x){var self=user&&x.user_id===user.id;return '<div class="dl" style="display:block"><b>'+esc(x.name)+'</b> &middot; '+esc(x.email)+'<br><span style="color:var(--mut)">Status: '+esc(x.status)+'</span> &middot; Role: <select data-sr="'+x.user_id+'">'+Object.keys(RL).map(function(k){return '<option value="'+k+'"'+(k===x.role?' selected':'')+'>'+RL[k]+'</option>'}).join('')+'</select><br>'+(x.status!=='approved'?'<button data-ap="'+x.user_id+'" style="color:var(--acc)">Approve</button> ':'')+(x.status==='pending'?'<button data-dc="'+x.user_id+'">Decline</button> ':'')+'<button data-rp="'+x.user_id+'">Reset password</button>'+(self?'':' <button data-rm="'+x.user_id+'">Remove</button>')+'</div>'}).join('');
+ function act(b,body,ask){b.onclick=async function(){if(ask&&!confirm(ask))return;try{await callTeam(body(b));customView('members')}catch(err){alert(err.message)}}}
+ L.querySelectorAll('button[data-ap]').forEach(function(b){act(b,function(b){return {action:'approve',user_id:b.getAttribute('data-ap')}})});
+ L.querySelectorAll('button[data-dc]').forEach(function(b){act(b,function(b){return {action:'decline',user_id:b.getAttribute('data-dc')}},'Decline this request?')});
+ L.querySelectorAll('button[data-rm]').forEach(function(b){act(b,function(b){return {action:'remove',user_id:b.getAttribute('data-rm')}},'Remove this person from the team? They will no longer be able to sign in.')});
+ L.querySelectorAll('select[data-sr]').forEach(function(s){s.onchange=async function(){try{await callTeam({action:'setrole',user_id:s.getAttribute('data-sr'),role:s.value});customView('members')}catch(err){alert(err.message);customView('members')}}});
+ L.querySelectorAll('button[data-rp]').forEach(function(b){b.onclick=async function(){var pw=prompt('Type a new temporary password (at least 8 characters). Then send it to that person.',gen());if(!pw)return;try{await callTeam({action:'reset',user_id:b.getAttribute('data-rp'),password:pw});alert('Password changed. Send the new password to them: '+pw)}catch(err){alert(err.message)}}})}
+async function review(){var L=$('adlst');var a=await sb.from('sightings').select('*').order('created_at',{ascending:false}).limit(50),b=await sb.from('contact_messages').select('*').order('created_at',{ascending:false}).limit(30);
+ L.innerHTML='<h3 style="margin:0 0 6px">Sightings</h3>'+((a.data||[]).map(function(x){return '<div class="dl" style="display:block"><b>'+esc(x.species)+'</b> &middot; '+esc(x.place)+' &middot; '+esc(x.seen_on)+' &middot; '+(x.approved?'Approved':'Waiting')+'<br><span style="color:var(--mut)">'+esc(x.notes||'')+' '+esc(x.reporter||'')+'</span>'+(x.photo_url?'<br><a href="'+esc(x.photo_url)+'" target="_blank" style="color:var(--acc)">View photo</a>':'')+'<br>'+(x.approved?'':'<button data-ap="'+x.id+'" style="color:var(--acc)">Approve</button> ')+'<button data-rm="s:'+x.id+'">Delete</button></div>'}).join('')||'<p class="sub">No sightings yet.</p>')+
+ '<h3 style="margin:18px 0 6px">Messages</h3>'+((b.data||[]).map(function(x){return '<div class="dl" style="display:block"><b>'+esc(x.name)+'</b> ('+esc(x.topic)+') '+esc(x.contact||'')+'<br>'+esc(x.message)+'<br><button data-rm="m:'+x.id+'">Delete</button></div>'}).join('')||'<p class="sub">No messages yet.</p>');
+ L.querySelectorAll('button[data-ap]').forEach(function(bt){bt.onclick=async function(){await sb.from('sightings').update({approved:true}).eq('id',bt.getAttribute('data-ap'));await loadPublic();all();review()}});
+ L.querySelectorAll('button[data-rm]').forEach(function(bt){bt.onclick=async function(){if(!confirm('Delete this?'))return;var p=bt.getAttribute('data-rm').split(':');await sb.from(p[0]==='s'?'sightings':'contact_messages').delete().eq('id',p[1]);await loadPublic();all();review()}})}
+var ROLEOPT=[['instructor','Instructor'],['species_editor','Species editor'],['communications','Communications'],['researcher','Researcher'],['owner','Owner (needs the setup code)']];
+var asr=$('asr');if(asr){asr.innerHTML=ROLEOPT.map(function(x){return '<option value="'+x[0]+'">'+x[1]+'</option>'}).join('');asr.onchange=function(){$('asc').parentNode.style.display=asr.value==='owner'?'grid':'none'}}
+document.querySelectorAll('.at').forEach(function(b){b.onclick=function(){document.querySelectorAll('.at').forEach(function(o){o.classList.toggle('on',o===b)});$('adf').style.display=b.getAttribute('data-m')==='in'?'':'none';$('asf').style.display=b.getAttribute('data-m')==='up'?'':'none'}});
+var sg=$('asf');if(sg)sg.addEventListener('submit',async function(e){e.preventDefault();var m=$('asm');m.style.display='block';m.textContent='Creating your account...';
+ try{var r=await fetch(SB_URL+'/functions/v1/team-signup',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+SB_KEY,apikey:SB_KEY},body:JSON.stringify({name:$('asn').value,email:$('ase').value,password:$('asp').value,role:$('asr').value,code:$('asc').value.trim()})});var j={};try{j=await r.json()}catch(x){}
+  if(!r.ok)throw new Error(j.error||'Could not create the account');sg.reset();document.querySelector('.at[data-m="in"]').click();var a=$('adm');a.style.display='block';a.textContent=j.status==='approved'?'Owner account created. You can sign in now.':'Account created. It is now waiting for approval by the owner. You can sign in once you are approved.'}catch(err){m.textContent=err.message}});
+var af=$('adf');if(af)af.addEventListener('submit',async function(e){e.preventDefault();var m=$('adm');m.style.display='block';
+ if(!sb||!online){m.textContent='Could not reach the server. Please try again.';return}
+ m.textContent='Signing in...';var r=await sb.auth.signInWithPassword({email:$('ade').value.trim(),password:$('adp').value});
+ if(r.error){m.textContent=r.error.message;return}user=r.data.user;await afterAuth();
+ if(!me){m.textContent='This account is not a team account. Use Sign up first.';await sb.auth.signOut();user=null;return}
+ if(me.status==='pending'){m.textContent='Your account is waiting for approval by the owner. Please try again later.';await sb.auth.signOut();user=null;me=null;return}
+ if(me.status==='declined'){m.textContent='Your request was not approved. Please contact the owner.';await sb.auth.signOut();user=null;me=null;return}
+ await refresh();$('adl').style.display='none';$('add').style.display='';$('adwho').textContent='Signed in as '+(me.name||'')+' ('+(RL[me.role]||me.role)+')';menu();form()});
+var ao=$('ado');if(ao)ao.onclick=function(){if(sb)sb.auth.signOut();user=null;isTeam=false;me=null;$('add').style.display='none';$('adl').style.display=''};
+/* ---------- start ---------- */
+(async function(){await loadPublic();all();
+ if(sb&&online){var s=await sb.auth.getSession();if(s.data&&s.data.session){user=s.data.session.user;await afterAuth();if(window.__hfOpen&&user)window.__hfOpen({name:(user.user_metadata&&user.user_metadata.name)||''})}}})();
+})();
+</script>
+</body>
+</html>
