@@ -304,6 +304,7 @@ function rings(){
       pos[k]=pt.x+bn.x*cs+nr.x*sn;pos[k+1]=pt.y+bn.y*cs+nr.y*sn;pos[k+2]=pt.z+bn.z*cs+nr.z*sn}}
   bg.attributes.position.needsUpdate=true;bg.computeVertexNormals();
 }
+
 /* snake head */
 var hg=new T.Group(),hm=new T.MeshStandardMaterial({map:sk,bumpMap:sk,bumpScale:1.2,color:0x86d9a2,emissive:0x143a24,roughness:.4,metalness:.25}),blk=new T.MeshBasicMaterial({color:0}),eye=M(0xe8c340,.3);
 hg.add(E(.46,.2,.3,hm,.05,0,0));hg.add(E(.34,.14,.22,hm,.42,-.03,0));
