@@ -3,8 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Digital conservation tourism, classes and citizen science for Uganda's reptiles and amphibians."><link rel="icon" href="images/favicon.png">
-<title>Herpetofauna Digital Tourism & Awareness Platform</title>
+<title>Herpetofauna Platform | Snake Safety, Classes and Eco-Tours in Uganda</title>
+<meta name="description" content="Herpetofauna Platform: snake safety classes, species profiles, virtual eco-tours and citizen science for Uganda's reptiles and amphibians. Based in Kampala.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="Herpetofauna Platform">
+<meta name="theme-color" content="#0b1710">
+<link rel="canonical" href="https://emmysited.github.io/Herpetofauna-Platform/">
+<link rel="icon" href="images/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Herpetofauna Platform">
+<meta property="og:title" content="Herpetofauna Platform | Snake Safety, Classes and Eco-Tours in Uganda">
+<meta property="og:description" content="Snake safety classes, species profiles, virtual eco-tours and citizen science for Uganda's reptiles and amphibians.">
+<meta property="og:url" content="https://emmysited.github.io/Herpetofauna-Platform/">
+<meta property="og:image" content="https://emmysited.github.io/Herpetofauna-Platform/images/hero.jpg">
+<meta property="og:locale" content="en_UG">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Herpetofauna Platform | Snake Safety, Classes and Eco-Tours in Uganda">
+<meta name="twitter:description" content="Snake safety classes, species profiles, virtual eco-tours and citizen science for Uganda's reptiles and amphibians.">
+<meta name="twitter:image" content="https://emmysited.github.io/Herpetofauna-Platform/images/hero.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Herpetofauna Platform","alternateName":"Herp Fauna Foundation","url":"https://emmysited.github.io/Herpetofauna-Platform/","logo":"https://emmysited.github.io/Herpetofauna-Platform/images/logo.png","description":"Digital conservation tourism, snake safety classes and citizen science for Uganda's reptiles and amphibians.","email":"herpfauna2@gmail.com","telephone":"+256752681903","address":{"@type":"PostalAddress","addressLocality":"Kampala","addressCountry":"UG"},"sameAs":["https://www.instagram.com/herpfauna/","https://www.facebook.com/atraceps"]}</script>
 <style>
 :root{--bg:#0b1710;--fg:#eaf2ec;--card:rgba(16,32,23,.72);--acc:#6fd195;--acc2:#e9a84c;--mut:#a9bcae;--bd:rgba(255,255,255,.14);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:64px}
@@ -518,7 +535,7 @@ var nv=document.getElementById('nv');
 function route(){var raw=(location.hash||'#home').slice(1).split('?'),h=raw[0]||'home',sub='';if(h.indexOf('/')>0){var pp=h.split('/');h=pp[0];sub=pp[1]}if(!P[h])h='notfound';
  Object.keys(P).forEach(function(k){P[k].forEach(function(id){var w=wr(id);if(w)w.style.display='none'})});
  P[h].forEach(function(id){var w=wr(id);if(w)w.style.display=''});if(h==='snake'&&window.renderSnake)window.renderSnake(sub);
- window.__pi=0;document.title=(h==='home'?'Herpetofauna Digital Tourism & Awareness Platform':T[h]+' | Herpetofauna Platform');
+ window.__pi=0;document.title=(h==='home'?'Herpetofauna Platform | Snake Safety, Classes and Eco-Tours in Uganda':T[h]+' | Herpetofauna Platform');
  var m=/topic=([^&]+)/.exec(raw[1]||''),sel=document.getElementById('ctt');if(m&&sel&&h==='contact'){var v=decodeURIComponent(m[1]);[].forEach.call(sel.options,function(o){if(o.text===v)sel.value=v})}
  document.querySelectorAll('#nv a').forEach(function(a){a.classList.toggle('cur',a.getAttribute('href')==='#'+h)});
  nv.classList.remove('open');var d=nv.querySelector('.dd');if(d)d.classList.remove('open');window.scrollTo(0,0)}
@@ -605,7 +622,7 @@ function defs(){CMS={
  tst:{l:'Testimonial',t:'testimonials',f:[['quote','What they said','ta'],['name','Name'],['role','Role or organisation']],list:function(){return DB.tst.map(function(x){return [x.id,x.quote.slice(0,60)]})}},
  gal:{l:'Gallery upload',t:'gallery_items',f:[['kind','Type','sel',[['photo','Photo'],['video','Video'],['poster','Poster']]],['caption','Caption'],['url','Photo or poster file (not needed for videos)','file'],['video_link','YouTube link (for videos)'],['poster_url','Video cover picture (optional)','file']],list:function(){return DB.gallery.map(function(x){return [x.id,(x.caption||x.kind)+' ('+x.kind+')']})}},
  live:{l:'Live class link',t:'site_settings',f:[['value','YouTube live link (clear it to stop)']]}};
- if(isAdmin)CMS.members={l:'Team members and approvals',custom:1};CMS.mypw={l:'My password',custom:1};if(can('sightings')||can('messages'))CMS.review={l:'Review sightings and messages',review:1};var AREA={snake:'snakes',cls:'classes',lesson:'lessons',tour:'tours',team:'team',tst:'testimonials',gal:'gallery',live:'live'};Object.keys(AREA).forEach(function(k){if(!can(AREA[k]))delete CMS[k]})}
+ if(isAdmin)CMS.members={l:'Team members and approvals',custom:1};CMS.mybio={l:'My bio',custom:1};CMS.mypw={l:'My password',custom:1};if(can('sightings')||can('messages'))CMS.review={l:'Review sightings and messages',review:1};var AREA={snake:'snakes',cls:'classes',lesson:'lessons',tour:'tours',team:'team',tst:'testimonials',gal:'gallery',live:'live'};Object.keys(AREA).forEach(function(k){if(!can(AREA[k]))delete CMS[k]})}
 async function upl(file,folder,mode){var s=await sb.auth.getSession(),tok=(mode!=='sighting'&&s.data&&s.data.session)?s.data.session.access_token:SB_KEY;var fd=new FormData();fd.append('file',file);fd.append('mode',mode||'team');var r=await fetch(SB_URL+'/functions/v1/tg-upload',{method:'POST',headers:{Authorization:'Bearer '+tok,apikey:SB_KEY},body:fd});var j={};try{j=await r.json()}catch(e){}if(!r.ok)throw new Error(j.error||'Upload failed');return j.url}
 function menu(){defs();ads.innerHTML='';Object.keys(CMS).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=CMS[k].l;ads.appendChild(o)});ads.value=cur in CMS?cur:Object.keys(CMS)[0];cur=ads.value}
 if(ads)ads.onchange=async function(){cur=ads.value;if(cur==='invite'&&isAdmin){var r=await sb.from('team_invites').select('*');DB.invites=r.data||[]}form()};
@@ -634,6 +651,16 @@ if(adg)adg.addEventListener('submit',async function(e){e.preventDefault();var c=
 function gen(){var a='abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789',b=new Uint32Array(10);crypto.getRandomValues(b);var s='Herp-';for(var i=0;i<8;i++)s+=a[b[i]%a.length];return s+(100+b[9]%900)}
 async function callTeam(body){var s=await sb.auth.getSession();var r=await fetch(SB_URL+'/functions/v1/team-manage',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+s.data.session.access_token,apikey:SB_KEY},body:JSON.stringify(body)});var j={};try{j=await r.json()}catch(e){}if(!r.ok)throw new Error(j.error||'Something went wrong');return j}
 async function customView(k){var L=$('adlst');
+
+if(k==='mybio'){var mr=await sb.from('team').select('*').eq('user_id',user.id).maybeSingle(),mw=(mr&&mr.data)||{};
+ L.innerHTML='<h3 style="margin:0 0 8px">My bio</h3><p class="sub" style="margin:0 0 10px">This is what visitors see under Our team on the About page.</p><form id="mbf" style="max-width:520px"><label>Name<input id="mb_n"></label><label>Role<input id="mb_r"></label><label>Bio<textarea id="mb_b" rows="6"></textarea></label><label>Photo (optional, replaces the current one)<input type="file" id="mb_p" accept="image/*"></label><button class="btn" type="submit">Save my bio</button><div class="msg" id="mb_m"></div></form>';
+ $('mb_n').value=mw.name||(me&&me.name)||'';$('mb_r').value=mw.role||'';$('mb_b').value=mw.bio||'';
+ $('mbf').onsubmit=async function(e){e.preventDefault();var m=$('mb_m');m.style.display='block';m.textContent='Saving...';
+ try{var ph='',f=$('mb_p').files[0];if(f)ph=await upl(f,'team');
+ var n=$('mb_n').value.trim();if(!n)throw new Error('Please enter your name.');
+ var r=await sb.rpc('save_my_bio',{p_name:n,p_role:$('mb_r').value.trim(),p_bio:$('mb_b').value.trim(),p_photo:ph});
+ if(r.error)throw r.error;await loadPublic();all();m.textContent='Saved. Your bio is now live on the About page.'}catch(err){m.textContent='Could not save: '+(err.message||'please try again')}};return}
+
  if(k==='mypw'){L.innerHTML='<h3 style="margin:0 0 8px">Change my password</h3><form id="pwf" style="max-width:420px"><label>New password (at least 8 characters)<input id="pw1" type="password" autocomplete="new-password"></label><label>Repeat it<input id="pw2" type="password" autocomplete="new-password"></label><button class="btn" type="submit">Change password</button><div class="msg" id="pwm"></div></form>';
   $('pwf').onsubmit=async function(e){e.preventDefault();var m=$('pwm');m.style.display='block';if($('pw1').value.length<8){m.textContent='Use at least 8 characters.';return}if($('pw1').value!==$('pw2').value){m.textContent='The two passwords do not match.';return}var r=await sb.auth.updateUser({password:$('pw1').value});m.textContent=r.error?r.error.message:'Your password was changed.';if(!r.error)$('pwf').reset()};return}
  var r=await sb.from('team_members').select('*').order('created_at'),rows=r.data||[];rows.sort(function(x,y){return (x.status==='pending'?0:1)-(y.status==='pending'?0:1)});var pend=rows.filter(function(x){return x.status==='pending'}).length;
