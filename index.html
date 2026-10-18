@@ -246,14 +246,24 @@ details.bio{margin-top:8px;text-align:left}details.bio summary{color:var(--acc);
 
 <div class="band"><section id="classes"><h2>Classes</h2><p class="sub" id="cintro">Learn from our team online, in live and recorded classes. Sign up free to get started.</p><p><a href="#contact?topic=Classes" style="color:var(--acc);font-weight:600">Ask about fees and class schedule &rarr;</a></p>
 <div id="gate" style="max-width:560px"><h3 id="ct" style="font-size:20px">Create your free account</h3>
-<form id="cf"><label>Full name<input id="cn" autocomplete="name"></label><label>Email<input id="ce" type="email" autocomplete="email" required></label><label>Password<input id="cp" type="password" autocomplete="new-password" required></label>
+<form id="cf"><label>Full name<input id="cn" autocomplete="name"></label><label>Email<input id="ce" type="email" autocomplete="email" required></label><label>Password (at least 8 characters)<input id="cp" type="password" autocomplete="new-password" required></label>
+  <label style="display:flex;gap:8px;align-items:center;font-weight:500"><input type="checkbox" id="cshow" style="width:auto">Show password</label>
 <button class="btn" type="submit" id="cb">Sign up</button>
 <button type="button" id="cs" style="background:none;border:0;color:var(--acc);cursor:pointer;font:inherit;text-align:left;padding:0">Already have an account? Log in</button>
-<div class="msg" id="cm"></div></form></div>
+<button type="button" id="cfg" style="display:none;background:none;border:0;color:var(--acc);cursor:pointer;font:inherit;text-align:left;padding:0">Forgot your password?</button>
+<div class="msg" id="cm"></div></form>
+<div id="cfw" style="display:none"><h3 style="font-size:20px">Forgot your password?</h3><p class="sub">Type your email and send us the request. The team will reply with a new password. You can change it after you log in.</p>
+<div style="display:grid;gap:12px;max-width:560px"><label>Your email<input id="cfe" type="email" autocomplete="email"></label>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="button" id="cfwa">Send request on WhatsApp</button><button class="btn" type="button" id="cfem" style="background:none;border:1px solid var(--acc);color:var(--acc)">Send request by email</button></div>
+<button type="button" id="cfb" style="background:none;border:0;color:var(--acc);cursor:pointer;font:inherit;text-align:left;padding:0">Back to log in</button>
+<div class="msg" id="cfm"></div></div></div></div>
 <div id="cv" style="display:none"><h3 id="cvw" style="font-size:22px;margin:0 0 4px"></h3><p class="sub">Your curriculum and schedule. Titles and lessons are drafts to be confirmed by the team.</p>
 <div id="cvlive"></div><div id="cvl"></div>
 <h3 style="margin-top:20px">Live class schedule</h3><p>Live sessions: dates to be announced.</p>
 <h3>Lesson video</h3><div id="cvp" style="background:rgba(0,0,0,.18);border-radius:10px;padding:34px 12px;text-align:center;color:var(--mut)">The lesson video or live stream will play here.</div>
+
+<details style="margin-top:18px"><summary>Change my password</summary><form id="cpf" style="margin-top:10px"><label>New password (at least 8 characters)<input id="cp1" type="password" autocomplete="new-password"></label><label>Repeat it<input id="cp2" type="password" autocomplete="new-password"></label><button class="btn" type="submit">Change password</button><div class="msg" id="cpm"></div></form></details>
+
 <p style="margin-top:14px"><button class="btn" id="co" type="button">Log out</button></p></div>
 </section></div>
 
@@ -506,11 +516,20 @@ function show(i,v){$(i).style.display=v?'':'none'}
 function open(){$('cvw').textContent='Welcome'+(user&&user.name?', '+user.name:'')+'!';
 $('cvl').innerHTML=Object.keys(C).map(function(k){return '<div style="border-top:1px solid var(--bd);padding:12px 0"><h3 style="margin:0 0 4px">'+esc(k)+'</h3><ol style="margin:4px 0;padding-left:20px;line-height:1.8">'+C[k].map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ol></div>'}).join('');
 show('gate',0);show('cv',1);if(window.enhanceClasses)window.enhanceClasses();$('cintro').textContent='You are signed in.'}
-$('cs').onclick=function(){login=!login;$('ct').textContent=login?'Log in to your classes':'Create your free account';$('cb').textContent=login?'Log in':'Sign up';$('cn').parentNode.style.display=login?'none':'grid';this.textContent=login?'New here? Create an account':'Already have an account? Log in'};
+$('cs').onclick=function(){login=!login;$('ct').textContent=login?'Log in to your classes':'Create your free account';$('cb').textContent=login?'Log in':'Sign up';$('cn').parentNode.style.display=login?'none':'grid';this.textContent=login?'New here? Create an account':'Already have an account? Log in';$('cfg').style.display=login?'':'none';$('cp').autocomplete=login?'current-password':'new-password';$('cm').style.display='none'};
 $('cf').addEventListener('submit',function(e){e.preventDefault();var m=$('cm');
- if(window.__hfAuth){window.__hfAuth(login,$('cn').value.trim(),$('ce').value.trim(),$('cp').value,function(u){user=u;open()},function(msg){m.textContent=msg;m.style.display='block'});return}if(pv){user={name:$('cn').value.trim()};open();return}
+ if(window.__hfAuth){var bt=$('cb'),bl=bt.textContent;bt.disabled=true;bt.textContent='Please wait...';m.style.display='none';window.__hfAuth(login,$('cn').value.trim(),$('ce').value.trim(),$('cp').value,function(u){bt.disabled=false;bt.textContent=bl;$('cf').reset();user=u;open()},function(msg){bt.disabled=false;bt.textContent=bl;m.textContent=msg;m.style.display='block'});return}if(pv){user={name:$('cn').value.trim()};open();return}
  m.textContent='Class accounts are not open yet. Please check back soon.';m.style.display='block'});
-window.__hfOpen=function(u){user=u;open()};$('co').onclick=function(){if(window.__hfSignOut)window.__hfSignOut();user=null;show('cv',0);show('gate',1);$('cintro').textContent='Learn from our team online, in live and recorded classes. Sign up free to get started.';$('classes').scrollIntoView({behavior:'smooth'})};
+window.__hfOpen=function(u){user=u;open()};
+$('cshow').onchange=function(){$('cp').type=this.checked?'text':'password'};
+function fgt(on){$('cf').style.display=on?'none':'';$('cfw').style.display=on?'':'none';$('ct').style.display=on?'none':''}
+$('cfg').onclick=function(){fgt(true);$('cfe').value=$('ce').value.trim()};
+$('cfb').onclick=function(){fgt(false)};
+function fq(){var e=$('cfe').value.trim(),m=$('cfm');if(!e){m.textContent='Please type your email first.';m.style.display='block';return ''}m.style.display='none';return 'Hello Herpetofauna Platform, I forgot the password for my class account. My email is '+e+'. Please reset it for me.'}
+$('cfwa').onclick=function(){var t=fq();if(t)window.open('https://wa.me/256752681903?text='+encodeURIComponent(t),'_blank')};
+$('cfem').onclick=function(){var t=fq();if(t)location.href='mailto:herpfauna2@gmail.com?subject='+encodeURIComponent('Password reset request')+'&body='+encodeURIComponent(t)};
+$('cpf').addEventListener('submit',function(e){e.preventDefault();var m=$('cpm');m.style.display='block';if($('cp1').value.length<8){m.textContent='Use at least 8 characters.';return}if($('cp1').value!==$('cp2').value){m.textContent='The two passwords do not match.';return}window.__hfNewPw($('cp1').value,function(err){m.textContent=err||'Your password was changed.';if(!err)$('cpf').reset()})});
+$('co').onclick=function(){if(window.__hfSignOut)window.__hfSignOut();user=null;show('cv',0);show('gate',1);$('cintro').textContent='Learn from our team online, in live and recorded classes. Sign up free to get started.';$('classes').scrollIntoView({behavior:'smooth'})};
 })();
 </script>
 <script>
@@ -607,7 +626,13 @@ window.__hfAuth=async function(login,name,email,pass,ok,fail){if(!sb||!online){f
  try{var r;if(login){r=await sb.auth.signInWithPassword({email:email,password:pass})}else{r=await sb.auth.signUp({email:email,password:pass,options:{data:{name:name}}})}
   if(r.error)throw r.error;if(!r.data.session){fail('Almost done. Check your email to confirm your account, then log in.');return}
   user=r.data.user;await afterAuth();ok({name:(user.user_metadata&&user.user_metadata.name)||''})}catch(e){fail(e.message||'Something went wrong. Please try again.')}};
-window.__hfSignOut=function(){if(sb)sb.auth.signOut();user=null;isTeam=false};
+  window.__hfAuth=async function(login,name,email,pass,ok,fail){if(!sb||!online){fail('Could not reach the server. Please check your connection and try again.');return}
+ if(!email){fail('Please enter your email.');return}if(!login&&!name){fail('Please enter your name.');return}if(!pass){fail('Please enter a password.');return}if(!login&&pass.length<8){fail('Please use a password with at least 8 characters.');return}
+ try{if(!login){var r0=await fetch(SB_URL+'/functions/v1/student-signup',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+SB_KEY,apikey:SB_KEY},body:JSON.stringify({name:name,email:email,password:pass})});var j0={};try{j0=await r0.json()}catch(x){}if(!r0.ok)throw new Error(j0.error||'Could not create the account. Please try again.')}
+  var r=await sb.auth.signInWithPassword({email:email,password:pass});if(r.error)throw r.error;
+  user=r.data.user;await afterAuth();ok({name:(user.user_metadata&&user.user_metadata.name)||name||''})}catch(e){var t=e.message||'';fail(/invalid login/i.test(t)?'That email or password is not right. Check them and try again, or use "Forgot your password?".':(t||'Something went wrong. Please try again.'))}};
+window.__hfNewPw=async function(pw,cb){if(!sb||!user){cb('Please log in first.');return}var r=await sb.auth.updateUser({password:pw});cb(r.error?r.error.message:'')};
+  window.__hfSignOut=function(){if(sb)sb.auth.signOut();user=null;isTeam=false};
 /* ---------- sightings and contact ---------- */
 var sf=$('f');if(sf){$('dt').value=new Date().toISOString().slice(0,10);sf.addEventListener('submit',async function(e){e.preventDefault();var m=$('msg');m.style.display='block';
  if(!sb||!online){m.textContent='The server could not be reached. Please try again later.';return}
@@ -626,7 +651,7 @@ function defs(){CMS={
  tst:{l:'Testimonial',t:'testimonials',f:[['quote','What they said','ta'],['name','Name'],['role','Role or organisation']],list:function(){return DB.tst.map(function(x){return [x.id,x.quote.slice(0,60)]})}},
  gal:{l:'Gallery upload',t:'gallery_items',f:[['kind','Type','sel',[['photo','Photo'],['video','Video'],['poster','Poster']]],['caption','Caption'],['url','Photo or poster file (not needed for videos)','file'],['video_link','YouTube link (for videos)'],['poster_url','Video cover picture (optional)','file']],list:function(){return DB.gallery.map(function(x){return [x.id,(x.caption||x.kind)+' ('+x.kind+')']})}},
  live:{l:'Live class link',t:'site_settings',f:[['value','YouTube live link (clear it to stop)']]}};
- if(isAdmin)CMS.members={l:'Team members and approvals',custom:1};CMS.news={l:'News',custom:1};CMS.mybio={l:'My bio',custom:1};CMS.mypw={l:'My password',custom:1};if(can('sightings')||can('messages'))CMS.review={l:'Review sightings and messages',review:1};var AREA={snake:'snakes',cls:'classes',lesson:'lessons',tour:'tours',team:'team',tst:'testimonials',gal:'gallery',live:'live'};Object.keys(AREA).forEach(function(k){if(!can(AREA[k]))delete CMS[k]})}
+ if(isAdmin){CMS.members={l:'Team members and approvals',custom:1};CMS.students={l:'Students (reset passwords)',custom:1}}CMS.news={l:'News',custom:1};CMS.mybio={l:'My bio',custom:1};CMS.mypw={l:'My password',custom:1};if(can('sightings')||can('messages'))CMS.review={l:'Review sightings and messages',review:1};var AREA={snake:'snakes',cls:'classes',lesson:'lessons',tour:'tours',team:'team',tst:'testimonials',gal:'gallery',live:'live'};Object.keys(AREA).forEach(function(k){if(!can(AREA[k]))delete CMS[k]})}
 async function upl(file,folder,mode){var s=await sb.auth.getSession(),tok=(mode!=='sighting'&&s.data&&s.data.session)?s.data.session.access_token:SB_KEY;var fd=new FormData();fd.append('file',file);fd.append('mode',mode||'team');var r=await fetch(SB_URL+'/functions/v1/tg-upload',{method:'POST',headers:{Authorization:'Bearer '+tok,apikey:SB_KEY},body:fd});var j={};try{j=await r.json()}catch(e){}if(!r.ok)throw new Error(j.error||'Upload failed');return j.url}
 function menu(){defs();ads.innerHTML='';Object.keys(CMS).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=CMS[k].l;ads.appendChild(o)});ads.value=cur in CMS?cur:Object.keys(CMS)[0];cur=ads.value}
 if(ads)ads.onchange=async function(){window.__ne=null;cur=ads.value;if(cur==='invite'&&isAdmin){var r=await sb.from('team_invites').select('*');DB.invites=r.data||[]}form()};
@@ -656,20 +681,7 @@ function gen(){var a='abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789',b=
 async function callTeam(body){var s=await sb.auth.getSession();var r=await fetch(SB_URL+'/functions/v1/team-manage',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+s.data.session.access_token,apikey:SB_KEY},body:JSON.stringify(body)});var j={};try{j=await r.json()}catch(e){}if(!r.ok)throw new Error(j.error||'Something went wrong');return j}
 async function customView(k){var L=$('adlst');
 
-if(k==='news'){var nq=await sb.from('news_posts').select('*').order('created_at',{ascending:false}),nrows=nq.data||[],ex=null;
- nrows.forEach(function(x){if(x.id===window.__ne)ex=x});
- var mine=nrows.filter(function(x){return x.author_id===user.id||can('news')});
- L.innerHTML='<h3 style="margin:0 0 8px">'+(ex?'Edit news post':'Write a news post')+'</h3><form id="nwf" style="max-width:560px"><label>Title<input id="nw_t"></label><label>Story<textarea id="nw_b" rows="8"></textarea></label><label>Picture (optional'+(ex&&ex.image_url?', replaces the current one':'')+')<input type="file" id="nw_i" accept="image/*"></label><label>YouTube link (optional)<input id="nw_v"></label><label>Show on the website<select id="nw_p"><option value="1">Published</option><option value="0">Draft (only you and the managers see it)</option></select></label><button class="btn" type="submit">'+(ex?'Save changes':'Publish post')+'</button>'+(ex?'<button class="btn" type="button" id="nw_c" style="background:none;border:1px solid var(--acc);color:var(--acc)">Cancel</button>':'')+'<div class="msg" id="nw_m"></div></form><h3 style="margin:22px 0 6px">'+(can('news')?'All news posts':'My news posts')+'</h3><div id="nw_l">'+(mine.length?mine.map(function(x){var d=x.created_at?new Date(x.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'';return '<div class="dl" style="display:block"><b>'+esc(x.title)+'</b> &middot; '+esc(d)+' &middot; '+(x.published?'Published':'Draft')+(x.author_name?' &middot; by '+esc(x.author_name):'')+'<br><button data-ed="'+x.id+'" style="color:var(--acc)">Edit</button> <button data-dl="'+x.id+'">Delete</button></div>'}).join(''):'<p class="sub">No posts yet.</p>')+'</div>';
- $('nw_t').value=ex?ex.title:'';$('nw_b').value=ex&&ex.body?ex.body:'';$('nw_v').value=ex&&ex.video_url?ex.video_url:'';$('nw_p').value=ex&&!ex.published?'0':'1';
- if($('nw_c'))$('nw_c').onclick=function(){window.__ne=null;customView('news')};
- L.querySelectorAll('button[data-ed]').forEach(function(b){b.onclick=function(){window.__ne=b.getAttribute('data-ed');customView('news');L.scrollIntoView({behavior:'smooth'})}});
- L.querySelectorAll('button[data-dl]').forEach(function(b){b.onclick=async function(){if(!confirm('Delete this post?'))return;var r=await sb.from('news_posts').delete().eq('id',b.getAttribute('data-dl'));if(r.error){alert(r.error.message);return}window.__ne=null;await loadPublic();all();customView('news')}});
- $('nwf').onsubmit=async function(e){e.preventDefault();var m=$('nw_m');m.style.display='block';m.textContent='Saving...';
- try{var t=$('nw_t').value.trim();if(!t)throw new Error('Please add a title.');
- var rec={title:t,body:$('nw_b').value.trim(),video_url:$('nw_v').value.trim()||null,published:$('nw_p').value==='1',updated_at:new Date().toISOString()},f=$('nw_i').files[0];
- if(f)rec.image_url=await upl(f,'news');
- var res;if(ex){res=await sb.from('news_posts').update(rec).eq('id',ex.id)}else{rec.author_id=user.id;rec.author_name=(me&&me.name)||'';res=await sb.from('news_posts').insert(rec)}
- if(res.error)throw res.error;window.__ne=null;await loadPublic();all();await customView('news');var n=$('nw_m');n.style.display='block';n.textContent='Saved. Published posts appear on the News page straight away.'}catch(err){m.textContent='Could not save: '+(err.message||'please try again')}};return}
+
 
 if(k==='mybio'){var mr=await sb.from('team').select('*').eq('user_id',user.id).maybeSingle(),mw=(mr&&mr.data)||{};
  L.innerHTML='<h3 style="margin:0 0 8px">My bio</h3><p class="sub" style="margin:0 0 10px">This is what visitors see under Our team on the About page.</p><form id="mbf" style="max-width:520px"><label>Name<input id="mb_n"></label><label>Role<input id="mb_r"></label><label>Bio<textarea id="mb_b" rows="6"></textarea></label><label>Photo (optional, replaces the current one)<input type="file" id="mb_p" accept="image/*"></label><button class="btn" type="submit">Save my bio</button><div class="msg" id="mb_m"></div></form>';
@@ -679,6 +691,12 @@ if(k==='mybio'){var mr=await sb.from('team').select('*').eq('user_id',user.id).m
  var n=$('mb_n').value.trim();if(!n)throw new Error('Please enter your name.');
  var r=await sb.rpc('save_my_bio',{p_name:n,p_role:$('mb_r').value.trim(),p_bio:$('mb_b').value.trim(),p_photo:ph});
  if(r.error)throw r.error;await loadPublic();all();m.textContent='Saved. Your bio is now live on the About page.'}catch(err){m.textContent='Could not save: '+(err.message||'please try again')}};return}
+
+ if(k==='students'){L.innerHTML='<p class="sub">Loading students...</p>';
+ try{var sj=await callTeam({action:'liststudents'}),sts=sj.students||[];
+ L.innerHTML='<h3 style="margin:0 0 6px">Students</h3><p class="sub" style="margin:0 0 10px">People who signed up for classes. If someone forgets their password, press Reset password, then send them the new one.</p>'+(sts.length?sts.map(function(x){return '<div class="dl" style="display:block"><b>'+esc(x.name||'(no name)')+'</b> &middot; '+esc(x.email)+'<br><span style="color:var(--mut)">Joined '+esc((x.created_at||'').slice(0,10))+'</span><br><button data-sp="'+x.id+'" style="color:var(--acc)">Reset password</button> <button data-sd="'+x.id+'">Delete account</button></div>'}).join(''):'<p class="sub">No students yet.</p>');
+ L.querySelectorAll('button[data-sp]').forEach(function(b){b.onclick=async function(){var pw=prompt('Type a new temporary password (at least 8 characters). Then send it to the student.',gen());if(!pw)return;try{await callTeam({action:'reset',user_id:b.getAttribute('data-sp'),password:pw});alert('Password changed. Send the new password to the student: '+pw)}catch(err){alert(err.message)}}});
+ L.querySelectorAll('button[data-sd]').forEach(function(b){b.onclick=async function(){if(!confirm('Delete this student account? This cannot be undone.'))return;try{await callTeam({action:'remove',user_id:b.getAttribute('data-sd')});customView('students')}catch(err){alert(err.message)}}})}catch(err){L.innerHTML='<p class="sub">Could not load students: '+esc(err.message||'please try again')+'</p>'}return}
 
  if(k==='mypw'){L.innerHTML='<h3 style="margin:0 0 8px">Change my password</h3><form id="pwf" style="max-width:420px"><label>New password (at least 8 characters)<input id="pw1" type="password" autocomplete="new-password"></label><label>Repeat it<input id="pw2" type="password" autocomplete="new-password"></label><button class="btn" type="submit">Change password</button><div class="msg" id="pwm"></div></form>';
   $('pwf').onsubmit=async function(e){e.preventDefault();var m=$('pwm');m.style.display='block';if($('pw1').value.length<8){m.textContent='Use at least 8 characters.';return}if($('pw1').value!==$('pw2').value){m.textContent='The two passwords do not match.';return}var r=await sb.auth.updateUser({password:$('pw1').value});m.textContent=r.error?r.error.message:'Your password was changed.';if(!r.error)$('pwf').reset()};return}
