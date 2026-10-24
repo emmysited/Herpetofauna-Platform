@@ -118,6 +118,17 @@ details.bio{margin-top:8px;text-align:left}details.bio summary{color:var(--acc);
 .tf{display:grid;gap:4px;margin:10px 0;font-size:14.5px}.tf div{display:flex;gap:8px}.tf b{flex:0 0 90px;color:var(--mut);font-weight:600}
 .dl{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--bd);font-size:14px}.at{padding:8px 18px;border-radius:99px;border:1px solid var(--bd);background:var(--card);color:var(--fg);cursor:pointer;font:600 14px system-ui}.at.on{background:var(--acc);color:#fff;border-color:var(--acc)}
 .dl button{background:none;border:0;color:var(--acc2);cursor:pointer;font:inherit}
+
+.nf{position:relative;border-radius:16px;overflow:hidden;min-height:340px;display:flex;align-items:flex-end;background:var(--card);border:1px solid var(--bd);margin-bottom:16px;text-decoration:none}
+.nf>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.nf:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,.82))}
+.nft{position:relative;z-index:1;padding:22px;color:#fff;width:100%}.nft h3{margin:6px 0;font-size:clamp(22px,4vw,32px)}
+.nc{padding:0;overflow:hidden}.nci{aspect-ratio:16/10;background:rgba(255,255,255,.06);overflow:hidden}.nci img{width:100%;height:100%;object-fit:cover;display:block}.ncb{padding:14px 16px}
+.ncat{display:inline-block;font:600 12px system-ui;background:var(--acc);color:#fff;padding:2px 10px;border-radius:99px}
+.nm{color:var(--mut);font:13px system-ui;margin:4px 0}
+.nsh{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+.nbody p{margin:0 0 14px;font-size:17px;line-height:1.7}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 </head>
@@ -205,6 +216,9 @@ details.bio{margin-top:8px;text-align:left}details.bio summary{color:var(--acc);
 <section id="notfound" style="text-align:center"><h2>Page not found</h2><p class="sub">We could not find that page.</p><a class="btn" href="#home">Go to Home</a></section>
 
 <section id="snake"><p><a href="#species" style="color:var(--acc);font-weight:600;text-decoration:none">&larr; All snakes</a></p><div id="snb"></div></section>
+
+
+<section id="story"><p><a href="#news" style="color:var(--acc);font-weight:600;text-decoration:none">&larr; All news</a></p><div id="stb"></div></section>
 
 <section id="admin"><h2>Team area</h2><p class="sub">For the Herp Fauna team only. Sign in to add or edit snake profiles, classes, tours, team bios, testimonials and gallery pictures.</p>
 <div id="adl" style="max-width:440px"><div style="display:flex;gap:8px;margin-bottom:14px"><button class="at on" data-m="in" type="button">Sign in</button><button class="at" data-m="up" type="button">Sign up</button></div>
@@ -556,13 +570,13 @@ lb.onclick=function(e){if(e.target.tagName!=='VIDEO'&&e.target.tagName!=='IFRAME
 draw();})();
 </script>
 <script>
-(function(){var P={home:['hero','pb','hq','hv','tst','partners','cta'],about:['about'],species:['species'],tours:['tours'],gallery:['gallery'],science:['science'],learn:['learn'],classes:['classes'],partners:['partners'],partner:['partner'],contact:['contact'],news:['news'],faq:['faq'],privacy:['privacy'],terms:['terms'],notfound:['notfound'],snake:['snake'],admin:['admin']};
-var T={home:'Home',about:'About us',species:'Herpetofauna',tours:'Tours',gallery:'Gallery',science:'Report a sighting',learn:'Snake safety',classes:'Classes',partners:'Our partners',partner:'Get involved',contact:'Contact',news:'News',faq:'FAQ',privacy:'Privacy policy',terms:'Terms of use',notfound:'Page not found',snake:'Snake profile',admin:'Team area'};
+(function(){var P={home:['hero','pb','hq','hv','tst','partners','cta'],about:['about'],species:['species'],tours:['tours'],gallery:['gallery'],science:['science'],learn:['learn'],classes:['classes'],partners:['partners'],partner:['partner'],contact:['contact'],news:['news'],faq:['faq'],privacy:['privacy'],terms:['terms'],notfound:['notfound'],snake:['snake'],story:['story'],admin:['admin']};
+var T={home:'Home',about:'About us',species:'Herpetofauna',tours:'Tours',gallery:'Gallery',science:'Report a sighting',learn:'Snake safety',classes:'Classes',partners:'Our partners',partner:'Get involved',contact:'Contact',news:'News',faq:'FAQ',privacy:'Privacy policy',terms:'Terms of use',notfound:'Page not found',snake:'Snake profile',story:'News story',admin:'Team area'};
 function wr(id){var e=document.getElementById(id);if(!e)return null;var q=e.parentElement;return q&&q.classList.contains('band')?q:e}
 var nv=document.getElementById('nv');
 function route(){var raw=(location.hash||'#home').slice(1).split('?'),h=raw[0]||'home',sub='';if(h.indexOf('/')>0){var pp=h.split('/');h=pp[0];sub=pp[1]}if(!P[h])h='notfound';
  Object.keys(P).forEach(function(k){P[k].forEach(function(id){var w=wr(id);if(w)w.style.display='none'})});
- P[h].forEach(function(id){var w=wr(id);if(w)w.style.display=''});if(h==='snake'&&window.renderSnake)window.renderSnake(sub);
+ P[h].forEach(function(id){var w=wr(id);if(w)w.style.display=''});if(h==='snake'&&window.renderSnake)window.renderSnake(sub);if(h==='story'&&window.renderStory)window.renderStory(sub);
  window.__pi=0;document.title=(h==='home'?'Herpetofauna Platform | Snake Safety, Classes and Eco-Tours in Uganda':T[h]+' | Herpetofauna Platform');
  var m=/topic=([^&]+)/.exec(raw[1]||''),sel=document.getElementById('ctt');if(m&&sel&&h==='contact'){var v=decodeURIComponent(m[1]);[].forEach.call(sel.options,function(o){if(o.text===v)sel.value=v})}
  document.querySelectorAll('#nv a').forEach(function(a){a.classList.toggle('cur',a.getAttribute('href')==='#'+h)});
@@ -621,6 +635,31 @@ function renderGallery(){if(!online||!window.__galSet)return;window.__galSet(DB.
 
 function renderNews(){var e=$('nwl');if(!e)return;var L=DB.news||[];e.innerHTML=L.map(function(x){var d=x.created_at?new Date(x.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):'';return '<div class="feat"><small style="color:var(--mut)">'+esc(d)+(x.author_name?' &middot; by '+esc(x.author_name):'')+'</small><h3>'+esc(x.title)+'</h3>'+(x.image_url?'<img class="zoom full" loading="lazy" src="'+esc(x.image_url)+'" alt="'+esc(x.title)+'" style="display:block;margin:10px 0">':'')+(x.video_url?'<div style="margin:10px 0">'+player(x.video_url)+'</div>':'')+(x.body?'<p>'+esc(x.body).replace(/\n/g,'<br>')+'</p>':'')+'</div>'}).join('')}
 
+function ncat(x){return x.category?'<span class="ncat">'+esc(x.category)+'</span> ':''}
+function ndate(x){return x.created_at?new Date(x.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):''}
+function nprev(x){var t=(x.body||'').replace(/\s+/g,' ').trim();return t.length>140?t.slice(0,140).replace(/\s+\S*$/,'')+'...':t}
+function renderNews(){var e=$('nwl');if(!e)return;var L=DB.news||[];if(!L.length){e.innerHTML='';return}
+ var cats=['All'];L.forEach(function(x){if(x.category&&cats.indexOf(x.category)<0)cats.push(x.category)});
+ var f=window.__nf||'All';if(cats.indexOf(f)<0)f='All';
+ var V=f==='All'?L:L.filter(function(x){return x.category===f});
+ var h=cats.length>1?'<div style="display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px">'+cats.map(function(c){return '<button class="gb'+(c===f?' on':'')+'" data-nf="'+esc(c)+'">'+esc(c)+'</button>'}).join('')+'</div>':'';
+ var a=V[0];
+ if(a)h+='<a class="nf" href="#story/'+a.id+'">'+(a.image_url?'<img src="'+esc(a.image_url)+'" alt="'+esc(a.title)+'">':'')+'<div class="nft">'+ncat(a)+'<h3>'+esc(a.title)+'</h3><span class="nm" style="color:#e6efe8">'+esc(ndate(a))+(a.author_name?' &middot; by '+esc(a.author_name):'')+'</span></div></a>';
+ var R=V.slice(1);
+ if(R.length)h+='<div class="grid">'+R.map(function(x){return '<a class="card nc" href="#story/'+x.id+'" style="text-decoration:none;color:inherit">'+(x.image_url?'<div class="nci"><img loading="lazy" src="'+esc(x.image_url)+'" alt="'+esc(x.title)+'"></div>':'')+'<div class="ncb">'+ncat(x)+'<h3>'+esc(x.title)+'</h3><p class="nm">'+esc(ndate(x))+(x.author_name?' &middot; by '+esc(x.author_name):'')+'</p><p>'+esc(nprev(x))+'</p></div></a>'}).join('')+'</div>';
+ e.innerHTML=h+'<h3 style="margin:30px 0 6px">Earlier stories</h3>';
+ e.querySelectorAll('button[data-nf]').forEach(function(b){b.onclick=function(){window.__nf=b.getAttribute('data-nf');renderNews()}})}
+window.renderStory=function(id){var box=$('stb'),x=null;(DB.news||[]).forEach(function(n){if(n.id===id)x=n});
+ if(!x){box.innerHTML=online?'<p>This story could not be found. It may have been removed.</p>':'<p>Loading...</p>';return}
+ var L=DB.news,i=L.indexOf(x),nx=L[i+1],pv=L[i-1],url=location.href,wa='https://wa.me/?text='+encodeURIComponent(x.title+' '+url);
+ box.innerHTML=ncat(x)+'<h2 style="margin:6px 0 4px">'+esc(x.title)+'</h2><p class="nm">'+esc(ndate(x))+(x.author_name?' &middot; by '+esc(x.author_name):'')+'</p>'
+ +(x.image_url?'<img class="zoom full" src="'+esc(x.image_url)+'" alt="'+esc(x.title)+'" style="display:block;margin:14px 0;max-height:520px">':'')
+ +(x.video_url?'<div style="margin:14px 0">'+player(x.video_url)+'</div>':'')
+ +(x.body?'<div class="nbody">'+esc(x.body).split(/\n{2,}/).map(function(p){return '<p>'+p.replace(/\n/g,'<br>')+'</p>'}).join('')+'</div>':'')
+ +'<div class="nsh"><a class="btn" href="'+wa+'" target="_blank" rel="noopener">Share on WhatsApp</a><button class="btn" type="button" id="ncp" style="background:none;border:1px solid var(--acc);color:var(--acc)">Copy link</button></div><div class="msg" id="ncm"></div>'
+ +'<div class="snn">'+(nx?'<a href="#story/'+nx.id+'">&larr; Older: '+esc(nx.title)+'</a>':'<span></span>')+(pv?'<a href="#story/'+pv.id+'">Newer: '+esc(pv.title)+' &rarr;</a>':'')+'</div>';
+ $('ncp').onclick=function(){var m=$('ncm'),t=location.href;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){m.textContent='Link copied.';m.style.display='block'}).catch(function(){m.textContent='Copy this link: '+t;m.style.display='block'})}};
+
 function renderSightings(){var e=$('recent');if(!e)return;var L=DB.sightings||[];e.innerHTML=L.length?'<h3 style="margin:0;font-family:system-ui">Recent sightings</h3>'+L.map(function(x){return '<div class="card"><b>'+esc(x.species)+'</b> &middot; '+esc(x.kind)+' &middot; '+esc(x.status)+'<br>'+esc(x.place)+', '+esc(x.seen_on)+(x.notes?'<br><span style="color:var(--mut)">'+esc(x.notes)+'</span>':'')+'</div>'}).join(''):''}
 window.enhanceClasses=function(){var box=$('cvl');if(!box||!online||!user||!DB.classes.length)return;
  var live=DB.settings.live_stream_url;$('cvlive').innerHTML=live?'<h3 style="margin:14px 0 6px">&#128308; Live class</h3>'+player(live):'';
@@ -629,7 +668,7 @@ window.enhanceClasses=function(){var box=$('cvl');if(!box||!online||!user||!DB.c
   (L.length?'<ol style="margin:4px 0;padding-left:20px;line-height:1.8">'+L.map(function(l){return '<li>'+(l.video_url?'<a href="#" data-lv="'+esc(l.video_url)+'" style="color:var(--acc)">'+esc(l.title)+'</a>':esc(l.title))+(l.notes?' <small style="color:var(--mut)">'+esc(l.notes)+'</small>':'')+'</li>'}).join('')+'</ol>':'<p class="sub" style="margin:4px 0">Lessons will be added soon.</p>')+'</div>'}).join('')}
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-lv]');if(!a)return;e.preventDefault();var p=$('cvp');p.style.padding='0';p.style.background='none';p.innerHTML=player(a.getAttribute('data-lv'));p.scrollIntoView({behavior:'smooth',block:'center'})});
 
-function all(){renderNews();renderTours();renderTst();renderTeam();renderSnakeCards();renderGallery();renderSightings();if(location.hash.indexOf('#snake/')===0)window.renderSnake(location.hash.slice(7).split('?')[0])}
+function all(){renderNews();renderTours();renderTst();renderTeam();renderSnakeCards();renderGallery();renderSightings();if(location.hash.indexOf('#snake/')===0)window.renderSnake(location.hash.slice(7).split('?')[0]);if(location.hash.indexOf('#story/')===0)window.renderStory(location.hash.slice(7).split('?')[0])}
 /* ---------- student and team sign-in ---------- */
 window.__hfAuth=async function(login,name,email,pass,ok,fail){if(!sb||!online){fail('Sign-in could not reach the server. Please check your connection and try again.');return}
  try{var r;if(login){r=await sb.auth.signInWithPassword({email:email,password:pass})}else{r=await sb.auth.signUp({email:email,password:pass,options:{data:{name:name}}})}
@@ -690,7 +729,20 @@ function gen(){var a='abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789',b=
 async function callTeam(body){var s=await sb.auth.getSession();var r=await fetch(SB_URL+'/functions/v1/team-manage',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+s.data.session.access_token,apikey:SB_KEY},body:JSON.stringify(body)});var j={};try{j=await r.json()}catch(e){}if(!r.ok)throw new Error(j.error||'Something went wrong');return j}
 async function customView(k){var L=$('adlst');
 
-
+if(k==='news'){var nq=await sb.from('news_posts').select('*').order('created_at',{ascending:false}),nrows=nq.data||[],ex=null;
+ nrows.forEach(function(x){if(x.id===window.__ne)ex=x});
+ var mine=nrows.filter(function(x){return x.author_id===user.id||can('news')});
+ L.innerHTML='<h3 style="margin:0 0 8px">'+(ex?'Edit news post':'Write a news post')+'</h3><form id="nwf" style="max-width:560px"><label>Title<input id="nw_t"></label><label>Story<textarea id="nw_b" rows="8"></textarea></label><label>Picture (optional'+(ex&&ex.image_url?', replaces the current one':'')+')<input type="file" id="nw_i" accept="image/*"></label><label>YouTube link (optional)<input id="nw_v"></label><label>Category (optional)<select id="nw_k"><option value="">None</option><option>Field notes</option><option>Events</option><option>Snakebite awareness</option><option>Conservation</option><option>Classes</option></select></label><label>Show on the website<select id="nw_p"><option value="1">Published</option><option value="0">Draft (only you and the managers see it)</option></select></label><button class="btn" type="submit">'+(ex?'Save changes':'Publish post')+'</button>'+(ex?'<button class="btn" type="button" id="nw_c" style="background:none;border:1px solid var(--acc);color:var(--acc)">Cancel</button>':'')+'<div class="msg" id="nw_m"></div></form><h3 style="margin:22px 0 6px">'+(can('news')?'All news posts':'My news posts')+'</h3><div id="nw_l">'+(mine.length?mine.map(function(x){var d=x.created_at?new Date(x.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'';return '<div class="dl" style="display:block"><b>'+esc(x.title)+'</b> &middot; '+esc(d)+' &middot; '+(x.published?'Published':'Draft')+(x.category?' &middot; '+esc(x.category):'')+(x.author_name?' &middot; by '+esc(x.author_name):'')+'<br><button data-ed="'+x.id+'" style="color:var(--acc)">Edit</button> <button data-dl="'+x.id+'">Delete</button></div>'}).join(''):'<p class="sub">No posts yet.</p>')+'</div>';
+ $('nw_t').value=ex?ex.title:'';$('nw_b').value=ex&&ex.body?ex.body:'';$('nw_v').value=ex&&ex.video_url?ex.video_url:'';$('nw_p').value=ex&&!ex.published?'0':'1';$('nw_k').value=ex&&ex.category?ex.category:'';
+ if($('nw_c'))$('nw_c').onclick=function(){window.__ne=null;customView('news')};
+ L.querySelectorAll('button[data-ed]').forEach(function(b){b.onclick=function(){window.__ne=b.getAttribute('data-ed');customView('news');L.scrollIntoView({behavior:'smooth'})}});
+ L.querySelectorAll('button[data-dl]').forEach(function(b){b.onclick=async function(){if(!confirm('Delete this post?'))return;var r=await sb.from('news_posts').delete().eq('id',b.getAttribute('data-dl'));if(r.error){alert(r.error.message);return}window.__ne=null;await loadPublic();all();customView('news')}});
+ $('nwf').onsubmit=async function(e){e.preventDefault();var m=$('nw_m');m.style.display='block';m.textContent='Saving...';
+ try{var t=$('nw_t').value.trim();if(!t)throw new Error('Please add a title.');
+ var rec={title:t,body:$('nw_b').value.trim(),video_url:$('nw_v').value.trim()||null,category:$('nw_k').value||null,published:$('nw_p').value==='1',updated_at:new Date().toISOString()},f=$('nw_i').files[0];
+ if(f)rec.image_url=await upl(f,'news');
+ var res;if(ex){res=await sb.from('news_posts').update(rec).eq('id',ex.id)}else{rec.author_id=user.id;rec.author_name=(me&&me.name)||'';res=await sb.from('news_posts').insert(rec)}
+ if(res.error)throw res.error;window.__ne=null;await loadPublic();all();await customView('news');var n=$('nw_m');n.style.display='block';n.textContent='Saved. Published posts appear on the News page straight away.'}catch(err){m.textContent='Could not save: '+(err.message||'please try again')}};return}
 
 if(k==='mybio'){var mr=await sb.from('team').select('*').eq('user_id',user.id).maybeSingle(),mw=(mr&&mr.data)||{};
  L.innerHTML='<h3 style="margin:0 0 8px">My bio</h3><p class="sub" style="margin:0 0 10px">This is what visitors see under Our team on the About page.</p><form id="mbf" style="max-width:520px"><label>Name<input id="mb_n"></label><label>Role<input id="mb_r"></label><label>Bio<textarea id="mb_b" rows="6"></textarea></label><label>Photo (optional, replaces the current one)<input type="file" id="mb_p" accept="image/*"></label><button class="btn" type="submit">Save my bio</button><div class="msg" id="mb_m"></div></form>';
