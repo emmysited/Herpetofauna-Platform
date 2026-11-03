@@ -119,6 +119,15 @@ details.bio{margin-top:8px;text-align:left}details.bio summary{color:var(--acc);
 .dl{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--bd);font-size:14px}.at{padding:8px 18px;border-radius:99px;border:1px solid var(--bd);background:var(--card);color:var(--fg);cursor:pointer;font:600 14px system-ui}.at.on{background:var(--acc);color:#fff;border-color:var(--acc)}
 .dl button{background:none;border:0;color:var(--acc2);cursor:pointer;font:inherit}
 
+.rvc{max-width:760px;margin:0 auto}
+.rvs{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:28px 24px;backdrop-filter:blur(6px);min-height:190px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.rvq{font:italic 20px/1.6 Georgia,serif;margin:0}
+.rvw{color:var(--mut);font:14px system-ui}
+.rvst{color:var(--acc2);font-size:22px;letter-spacing:2px}
+.rvd{display:flex;gap:8px;justify-content:center;margin-top:12px}.rvd button{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:var(--bd);cursor:pointer}.rvd button.on{background:var(--acc)}
+.rvbig{font:700 56px/1 system-ui;color:var(--acc)}
+.rvbar{display:flex;align-items:center;gap:10px;font:14px system-ui;color:var(--mut)}.rvbar i{flex:1;height:8px;border-radius:99px;background:var(--bd);overflow:hidden}.rvbar i b{display:block;height:100%;background:var(--acc2)}
+
 .nf{position:relative;border-radius:16px;overflow:hidden;min-height:340px;display:flex;align-items:flex-end;background:var(--card);border:1px solid var(--bd);margin-bottom:16px;text-decoration:none}
 .nf>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .nf:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,.82))}
@@ -292,16 +301,24 @@ details.bio{margin-top:8px;text-align:left}details.bio summary{color:var(--acc);
 
 <section id="tst" class="empty"><h2>What people say</h2><div class="grid" id="tstl"></div></section>
 
-<section id="rv"><h2>Reviews</h2><p class="sub" id="rv_sum">Be the first to leave a review.</p>
-  <div class="grid" id="rv_l"></div>
-  <h3 style="margin:26px 0 8px">Leave a review</h3>
-  <form id="rvf" style="max-width:560px"><input id="rv_w" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
-  <label>Your name<input id="rv_n" autocomplete="name"></label>
-  <label>Where are you from, or what do you do? (optional)<input id="rv_p" placeholder="e.g. Teacher, Kampala"></label>
-  <div><div style="font:600 14px system-ui;margin-bottom:4px">Your rating</div><div id="rv_s"></div></div>
-  <label>Your review<textarea id="rv_c" rows="4" placeholder="Tell us about your experience"></textarea></label>
-  <button class="btn" type="submit" id="rv_b">Send review</button><div class="msg" id="rv_m"></div>
-  <p class="sub" style="font-size:13px;margin:0">Your name and review will be shown on the site after our team checks it.</p></form></section>
+<section id="rv"><h2>Reviews</h2>
+ 
+  <section id="rvh" style="text-align:center"><h2>Reviews</h2><p class="sub" id="rvh_sum"></p><div class="rvc" id="rvh_c"></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px"><a class="btn" href="#reviews">Read all reviews</a><a class="btn" href="#write-review" style="background:none;border:1px solid var(--acc);color:var(--acc)">Leave a review</a></div></section>
+    
+    <section id="rvp"><h2>Reviews</h2><p class="sub">What people say about Herp Fauna.</p>
+    <div class="card" style="display:flex;gap:28px;flex-wrap:wrap;align-items:center;margin-bottom:20px"><div style="text-align:center"><div class="rvbig" id="rvp_big">-</div><div class="rvst" id="rvp_st"></div><div class="rvw" id="rvp_n"></div></div><div id="rvp_bars" style="flex:1;min-width:220px;display:grid;gap:6px"></div></div>
+    <div style="margin-bottom:20px"><a class="btn" href="#write-review">Leave a review</a></div>
+    <div class="grid" id="rvp_l"></div></section>
+    
+    <section id="rvn"><p><a href="#reviews" style="color:var(--acc);font-weight:600;text-decoration:none">&larr; All reviews</a></p><h2>Leave a review</h2><p class="sub">Tell us about your experience. Your review will be shown after our team checks it.</p>
+    <form id="rvf" style="max-width:560px"><input id="rv_w" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+    <label>Your name<input id="rv_n" autocomplete="name"></label>
+    <label>Where are you from, or what do you do? (optional)<input id="rv_p" placeholder="e.g. Teacher, Kampala"></label>
+    <div><div style="font:600 14px system-ui;margin-bottom:4px">Your rating</div><div id="rv_s"></div></div>
+    <label>Your review<textarea id="rv_c" rows="5" placeholder="Tell us about your experience"></textarea></label>
+    <button class="btn" type="submit" id="rv_b">Send review</button><div class="msg" id="rv_m"></div></form></section>
+
 
 <section id="partners"><h2>Our partners</h2><p class="sub">Swipe, or tap a partner or the arrows, to slide through.</p><div class="pw"><button class="pb" id="pp" aria-label="Previous partner">&#8249;</button><div class="pt" id="pt"><div class="card pc"><div class="pi"><span>DB</span><img src="images/partners/dag-and-bragan-ltd.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Dag and Bragan LTD</div></div><div class="card pc"><div class="pi"><span>MS</span><img src="images/partners/makerere-school-of-education-biology-class.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Makerere School of Education, Biology Class</div></div><div class="card pc"><div class="pi"><span>DC</span><img src="images/partners/dancing-cup-restaurant-bugolobi.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Dancing Cup Restaurant, Bugolobi</div></div><div class="card pc"><div class="pi"><span>DR</span><img src="images/partners/danish-refugee-council.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Danish Refugee Council</div></div><div class="card pc"><div class="pi"><span>FS</span><img src="images/partners/french-school-kampala.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">French School Kampala</div></div><div class="card pc"><div class="pi"><span>KI</span><img src="images/partners/kalangala-infrastructure-services-kis.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Kalangala Infrastructure Services (KIS)</div></div><div class="card pc"><div class="pi"><span>KH</span><img src="images/partners/kalangala-health-centre.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Kalangala Health Centre</div></div><div class="card pc"><div class="pi"><span>MP</span><img src="images/partners/mukono-police-station.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Mukono Police Station</div></div><div class="card pc"><div class="pi"><span>RS</span><img src="images/partners/royal-suits-bugolobi.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Royal Suits, Bugolobi</div></div><div class="card pc"><div class="pi"><span>SS</span><img src="images/partners/silverleaf-school-kampala.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Silverleaf School Kampala</div></div><div class="card pc"><div class="pi"><span>BM</span><img src="images/partners/bombo-military-barracks-updf.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Bombo Military Barracks (UPDF)</div></div><div class="card pc"><div class="pi"><span>BL</span><img src="images/partners/bushbaby-lodge.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">Bushbaby Lodge</div></div><div class="card pc"><div class="pi"><span>AR</span><img src="images/partners/a-rocha-uganda.png" alt="" onload="this.previousElementSibling.remove()" onerror="this.remove()"></div><div class="pnm">A Rocha Uganda</div></div></div><button class="pb" id="pnx" aria-label="Next partner">&#8250;</button></div></section>
 
@@ -581,8 +598,8 @@ lb.onclick=function(e){if(e.target.tagName!=='VIDEO'&&e.target.tagName!=='IFRAME
 draw();})();
 </script>
 <script>
-(function(){var P={home:['hero','pb','hq','hv','tst','rv','partners','cta'],about:['about'],species:['species'],tours:['tours'],gallery:['gallery'],science:['science'],learn:['learn'],classes:['classes'],partners:['partners'],partner:['partner'],contact:['contact'],news:['news'],faq:['faq'],privacy:['privacy'],terms:['terms'],notfound:['notfound'],snake:['snake'],story:['story'],reviews:['rv'],admin:['admin']};
-var T={home:'Home',about:'About us',species:'Herpetofauna',tours:'Tours',gallery:'Gallery',science:'Report a sighting',learn:'Snake safety',classes:'Classes',partners:'Our partners',partner:'Get involved',contact:'Contact',news:'News',faq:'FAQ',privacy:'Privacy policy',terms:'Terms of use',notfound:'Page not found',snake:'Snake profile',story:'News story',reviews:'Reviews',admin:'Team area'};
+(function(){var P={home:['hero','pb','hq','hv','tst','rvh','partners','cta'],about:['about'],species:['species'],tours:['tours'],gallery:['gallery'],science:['science'],learn:['learn'],classes:['classes'],partners:['partners'],partner:['partner'],contact:['contact'],news:['news'],faq:['faq'],privacy:['privacy'],terms:['terms'],notfound:['notfound'],snake:['snake'],story:['story'],reviews:['rvp'],'write-review':['rvn'],admin:['admin']};
+var T={home:'Home',about:'About us',species:'Herpetofauna',tours:'Tours',gallery:'Gallery',science:'Report a sighting',learn:'Snake safety',classes:'Classes',partners:'Our partners',partner:'Get involved',contact:'Contact',news:'News',faq:'FAQ',privacy:'Privacy policy',terms:'Terms of use',notfound:'Page not found',snake:'Snake profile',story:'News story',reviews:'Reviews','write-review':'Leave a review',admin:'Team area'};
 function wr(id){var e=document.getElementById(id);if(!e)return null;var q=e.parentElement;return q&&q.classList.contains('band')?q:e}
 var nv=document.getElementById('nv');
 function route(){var raw=(location.hash||'#home').slice(1).split('?'),h=raw[0]||'home',sub='';if(h.indexOf('/')>0){var pp=h.split('/');h=pp[0];sub=pp[1]}if(!P[h])h='notfound';
@@ -701,12 +718,18 @@ var sf=$('f');if(sf){$('dt').value=new Date().toISOString().slice(0,10);sf.addEv
 ['ctw','ctx'].forEach(function(id){var b=$(id);if(b)b.addEventListener('click',function(){if(!sb||!online)return;var n=$('ctn').value.trim(),t=$('ctm').value.trim();if(n&&t)sb.from('contact_messages').insert({name:n,contact:$('cte').value.trim(),topic:$('ctt').value,message:t})})});
 
 function stars(n){return '★★★★★'.slice(0,n)+'☆☆☆☆☆'.slice(0,5-n)}
-function drawStars(n){var s=$('rv_s');if(!s)return;var h='';for(var i=1;i<=5;i++)h+='<button type="button" data-v="'+i+'" aria-label="'+i+' stars" style="background:none;border:0;font-size:34px;line-height:1;color:var(--acc2);cursor:pointer;padding:0 2px">'+(i<=n?'★':'☆')+'</button>';s.innerHTML=h}
-function renderReviews(){var l=$('rv_l'),s=$('rv_sum');if(!l)return;var L=DB.reviews||[];
- if(!L.length){l.innerHTML='';s.textContent='Be the first to leave a review.';return}
- var t=0;L.forEach(function(x){t+=x.rating});var avg=Math.round(t/L.length*10)/10;
- s.innerHTML='<span style="color:var(--acc2);font-size:20px">'+stars(Math.round(avg))+'</span> <b>'+avg+'</b> out of 5 from '+L.length+(L.length===1?' review':' reviews');
- l.innerHTML=L.map(function(x){var d=x.created_at?new Date(x.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'';return '<div class="tcard"><div style="color:var(--acc2)">'+stars(x.rating)+'</div><p>'+esc(x.comment).replace(/\n/g,'<br>')+'</p><small>'+esc(x.name)+(x.place?', '+esc(x.place):'')+' &middot; '+esc(d)+'</small></div>'}).join('')}
+function rcut(t,n){t=(t||'').replace(/\s+/g,' ').trim();return t.length>n?t.slice(0,n).replace(/\s+\S*$/,'')+'...':t}
+function drawStars(n){var s=$('rv_s');if(!s)return;var h='';for(var i=1;i<=5;i++)h+='<button type="button" data-v="'+i+'" aria-label="'+i+' stars" style="background:none;border:0;font-size:38px;line-height:1;color:var(--acc2);cursor:pointer;padding:0 3px">'+(i<=n?'★':'☆')+'</button>';s.innerHTML=h}
+function renderReviews(){var L=DB.reviews||[],t=0;L.forEach(function(x){t+=x.rating});var avg=L.length?Math.round(t/L.length*10)/10:0;
+ var c=$('rvh_c');if(c){var sm=$('rvh_sum');clearInterval(window.__rt);
+  if(!L.length){sm.textContent='';c.innerHTML='<div class="rvs"><p class="rvq" style="font-size:18px">No reviews yet. Be the first to share your experience.</p></div>'}
+  else{sm.innerHTML='<span class="rvst">'+stars(Math.round(avg))+'</span> <b>'+avg+'</b> out of 5 &middot; '+L.length+(L.length===1?' review':' reviews');
+   var sl=L.slice(0,8),show=function(i){var x=sl[i];c.innerHTML='<div class="rvs"><div class="rvst">'+stars(x.rating)+'</div><p class="rvq">&ldquo;'+esc(rcut(x.comment,220))+'&rdquo;</p><div class="rvw">'+esc(x.name)+(x.place?', '+esc(x.place):'')+'</div></div>'+(sl.length>1?'<div class="rvd">'+sl.map(function(_,j){return '<button type="button" data-i="'+j+'"'+(j===i?' class="on"':'')+' aria-label="Review '+(j+1)+'"></button>'}).join('')+'</div>':'');window.__ri=i};
+   c.onclick=function(e){var b=e.target.closest('button[data-i]');if(b)show(+b.getAttribute('data-i'))};
+   show(0);if(sl.length>1)window.__rt=setInterval(function(){if(!document.hidden)show(((window.__ri||0)+1)%sl.length)},6000)}}
+ var pl=$('rvp_l');if(pl){$('rvp_big').textContent=L.length?avg:'-';$('rvp_st').textContent=L.length?stars(Math.round(avg)):'';$('rvp_n').textContent=L.length?L.length+(L.length===1?' review':' reviews'):'No reviews yet';
+  var bars='';for(var r=5;r>=1;r--){var cnt=L.filter(function(x){return x.rating===r}).length,pc=L.length?Math.round(cnt/L.length*100):0;bars+='<div class="rvbar"><span>'+r+' &#9733;</span><i><b style="width:'+pc+'%"></b></i><span>'+cnt+'</span></div>'}$('rvp_bars').innerHTML=bars;
+  pl.innerHTML=L.map(function(x){var d=x.created_at?new Date(x.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'';return '<div class="tcard"><div class="rvst">'+stars(x.rating)+'</div><p>'+esc(x.comment).replace(/\n/g,'<br>')+'</p><small>'+esc(x.name)+(x.place?', '+esc(x.place):'')+' &middot; '+esc(d)+'</small></div>'}).join('')}}
 window.__rv=0;drawStars(0);
 var rss=$('rv_s');if(rss)rss.onclick=function(e){var b=e.target.closest('button');if(b){window.__rv=+b.getAttribute('data-v');drawStars(window.__rv)}};
 var rvf=$('rvf');if(rvf)rvf.addEventListener('submit',async function(e){e.preventDefault();var m=$('rv_m'),b=$('rv_b');m.style.display='block';
@@ -717,7 +740,7 @@ var rvf=$('rvf');if(rvf)rvf.addEventListener('submit',async function(e){e.preven
  if(!window.__rv){m.textContent='Please choose a star rating.';return}
  if(cm.length<10){m.textContent='Please write at least 10 characters.';return}
  b.disabled=true;b.textContent='Please wait...';
- try{var r=await sb.rpc('submit_review',{p_name:nm,p_place:$('rv_p').value.trim(),p_rating:window.__rv,p_comment:cm});if(r.error)throw r.error;m.textContent='Thank you! Your review will appear after our team checks it.';rvf.reset();window.__rv=0;drawStars(0)}catch(err){m.textContent=(err.message&&/too many|between|characters|name|rating/i.test(err.message))?err.message:'Sorry, we could not send your review. Please try again.'}
+ try{var r=await sb.rpc('submit_review',{p_name:nm,p_place:$('rv_p').value.trim(),p_rating:window.__rv,p_comment:cm});if(r.error)throw r.error;m.textContent='Thank you! Your review will appear after our team checks it.';rvf.reset();window.__rv=0;drawStars(0);setTimeout(function(){location.hash='#reviews'},2500)}catch(err){m.textContent=(err.message&&/too many|between|characters|name|rating/i.test(err.message))?err.message:'Sorry, we could not send your review. Please try again.'}
  b.disabled=false;b.textContent='Send review'});
 
 /* ---------- team area ---------- */
