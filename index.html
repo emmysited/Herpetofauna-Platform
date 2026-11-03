@@ -646,7 +646,7 @@ async function loadPublic(){if(!sb)return;try{
 async function loadPrivate(){if(!sb||!user)return;try{var a=await sb.from('classes').select('*').order('sort'),b=await sb.from('lessons').select('*').order('sort').order('created_at');DB.classes=a.data||[];DB.lessons=b.data||[]}catch(e){}}
 async function afterAuth(){var t=await sb.from('team_members').select('role,status,name').eq('user_id',user.id).maybeSingle();me=t&&t.data?t.data:null;isTeam=!!(me&&me.status==='approved');isAdmin=!!(isTeam&&me.role==='owner');await loadPrivate()}
 var RL={owner:'Owner',instructor:'Instructor',species_editor:'Species editor',communications:'Communications',researcher:'Researcher'};
-var PERM={owner:['*'],instructor:['classes','lessons','live'],species_editor:['snakes','gallery'],communications:['tours','team','testimonials','gallery','messages','news','newsletter'],researcher:['snakes','sightings']};
+var PERM={owner:['*'],instructor:['classes','lessons','live'],species_editor:['snakes','gallery'],communications:['tours','team','testimonials','gallery','messages','news','newsletter'],researcher:['snakes','sightings'],it_manager:['snakes','classes','lessons','live','tours','team','testimonials','gallery','messages','news','newsletter','sightings']};
 function can(a){return !!(isTeam&&me&&(me.role==='owner'||(PERM[me.role]||[]).indexOf(a)>-1))}
 /* ---------- rendering ---------- */
 window.renderSnake=function(slug){var i=-1;SN.forEach(function(x,k){if(x[0]===slug)i=k});var box=$('snb');
@@ -864,7 +864,7 @@ async function review(){var L=$('adlst');var a=await sb.from('sightings').select
  '<h3 style="margin:18px 0 6px">Messages</h3>'+((b.data||[]).map(function(x){return '<div class="dl" style="display:block"><b>'+esc(x.name)+'</b> ('+esc(x.topic)+') '+esc(x.contact||'')+'<br>'+esc(x.message)+'<br><button data-rm="m:'+x.id+'">Delete</button></div>'}).join('')||'<p class="sub">No messages yet.</p>');
  L.querySelectorAll('button[data-ap]').forEach(function(bt){bt.onclick=async function(){await sb.from('sightings').update({approved:true}).eq('id',bt.getAttribute('data-ap'));await loadPublic();all();review()}});
  L.querySelectorAll('button[data-rm]').forEach(function(bt){bt.onclick=async function(){if(!confirm('Delete this?'))return;var p=bt.getAttribute('data-rm').split(':');await sb.from(p[0]==='s'?'sightings':'contact_messages').delete().eq('id',p[1]);await loadPublic();all();review()}})}
-var ROLEOPT=[['instructor','Instructor'],['species_editor','Species editor'],['communications','Communications'],['researcher','Researcher'],['owner','Owner (needs the setup code)']];
+var ROLEOPT=[['instructor','Instructor'],['species_editor','Species editor'],['communications','Communications'],['researcher','Researcher'],['it_manager','IT manager'],['owner','Owner (needs the setup code)']];
 var asr=$('asr');if(asr){asr.innerHTML=ROLEOPT.map(function(x){return '<option value="'+x[0]+'">'+x[1]+'</option>'}).join('');asr.onchange=function(){$('asc').parentNode.style.display=asr.value==='owner'?'grid':'none'}}
 document.querySelectorAll('.at').forEach(function(b){b.onclick=function(){document.querySelectorAll('.at').forEach(function(o){o.classList.toggle('on',o===b)});$('adf').style.display=b.getAttribute('data-m')==='in'?'':'none';$('asf').style.display=b.getAttribute('data-m')==='up'?'':'none'}});
 var sg=$('asf');if(sg)sg.addEventListener('submit',async function(e){e.preventDefault();var m=$('asm');m.style.display='block';m.textContent='Creating your account...';
